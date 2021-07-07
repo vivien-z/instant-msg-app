@@ -1,9 +1,11 @@
 import React, { useRef } from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
 import { v4 as uuidV4 } from 'uuid'
+// import { useContacts } from '../contexts/ContactsProvider' //
 
 export default function Login( { value, onIdSubmit, onChange }) {
   const usernameRef = useRef()
+  // const { createContact } = useContacts() //
 
   function generateRandomUsername() {
     const rug = require('random-username-generator');
@@ -20,7 +22,7 @@ export default function Login( { value, onIdSubmit, onChange }) {
     // onUsernameSubmit(username)
     onChange(username)
     onIdSubmit(id)
-    console.log(id)
+    // createContact(id, username) //
   }
 
   return (

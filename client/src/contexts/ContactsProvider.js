@@ -14,7 +14,6 @@ export function ContactsProvider({ childern }) {
     setContacts(prevContacts => {
       return [...prevContacts, { id, username }]
     })
-
   }
 
   return (
