@@ -1,22 +1,26 @@
 import React, { useRef } from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
+import { v4 as uuidV4 } from 'uuid'
 
-export default function Login( { onUsernameSubmit }) {
+export default function Login( { value, onIdSubmit, onChange }) {
   const usernameRef = useRef()
 
   function generateRandomUsername() {
     const rug = require('random-username-generator');
-    onUsernameSubmit(rug.generate())
+    // return rug.generate()
+    // onUsernameSubmit(rug.generate())
+    onChange(rug.generate())
   }
 
-  // function setRandomUsername() {
-  //   onChange(generateRandomUsername())
-  // }
-
   function handleSubmit(e) {
-    e.preventDefault()
+    const id = uuidV4()
+    const username = usernameRef.current.value
 
-    onUsernameSubmit(usernameRef.current.value)
+    e.preventDefault()
+    // onUsernameSubmit(username)
+    onChange(username)
+    onIdSubmit(id)
+    console.log(id)
   }
 
   return (
@@ -27,7 +31,8 @@ export default function Login( { onUsernameSubmit }) {
           <Form.Control
             type="text"
             ref={usernameRef}
-            // onChange={(e) => e.preventDefault() || onChange(e.target.value)}
+            value={value}
+            onChange={(e) => e.preventDefault() || onChange(e.target.value)}
             required>
           </Form.Control>
         </Form.Group>
