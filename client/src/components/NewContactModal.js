@@ -7,6 +7,9 @@ export default function NewContactModal({ closeModal }) {
 
   function handleSubmit(e) {
     e.preventDefault()
+
+    // createContact(idRef.current.value, usernameRef.current.value)
+    closeModal()
   }
 
   return (
@@ -22,7 +25,7 @@ export default function NewContactModal({ closeModal }) {
             <Form.Label>Username:</Form.Label>
             <Form.Control type="text" ref={usernameRef} required></Form.Control>
           </Form.Group>
-          <Button type='submit'>Add</Button>
+          <Button type='submit' className="mt-2">Add</Button>
         </Form>
       </Modal.Body>
     </>
