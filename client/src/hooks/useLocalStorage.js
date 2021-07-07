@@ -8,13 +8,13 @@ function useLocalStorage(key, initialValue) {
   const [value, setValue] = useState(() => { // get value from local storage and put into the state.
     const jsonValue = localStorage.getItem(prefixedKey)
     if (jsonValue != null) {
-      return JSON.parse(jsonValue)
+      return JSON.parse(jsonValue) //1. return is value exist
     }
 
     if (typeof initialValue === 'function') {
-      return initialValue()
+      return initialValue() //2. or return if the initialValue is a function
     } else {
-      return initialValue
+      return initialValue //3. or return the default value
     }
 
   })
