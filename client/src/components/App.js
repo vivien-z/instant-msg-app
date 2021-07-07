@@ -18,7 +18,7 @@ function App() {
   if (id) {
     return (
       <>
-        <MainInterface id={id}/>
+        <MainInterface id={id} username={username}/>
       </>
     )
   } else {
