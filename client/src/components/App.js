@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import Login from './Login'
+import useLocalStorage from '../hooks/useLocalStorage'
 
 function App() {
-  const [username, setUsername] = useState('')
+  const [username, setUsername] = useLocalStorage('username')
 
   return (
     <>
