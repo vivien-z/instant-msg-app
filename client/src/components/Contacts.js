@@ -2,19 +2,12 @@ import React from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { useUsers } from '../contexts/UsersProvider';
 
-export default function Users({ myUsername }) {
+export default function Contacts({ myUsername }) {
   const { users } = useUsers()
-
-  function filterContacts(myUsername, users) {
-    if (myUsername) {
-      return users.filter((user) => (
-        user.username !== myUsername
-      ))
-    } else {
-      return users
-    }
-  }
-  const contacts = filterContacts(myUsername, users)
+  const contacts = users.filter(user => {
+    return user.username !== myUsername
+  })
+  // console.log(contacts)
 
   return (
     <ListGroup variant="flush">
@@ -28,3 +21,4 @@ export default function Users({ myUsername }) {
     </ListGroup>
   )
 }
+

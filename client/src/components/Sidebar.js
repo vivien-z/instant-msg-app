@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Tab, Nav, Button, Modal } from 'react-bootstrap'
 import Chatrooms from './Chatrooms'
-import Users from './Users'
+import Contacts from './Contacts'
 import NewChatroomModal from './NewChatroomModal'
 import NewContactModal from './NewContactModal'
 
@@ -36,7 +36,7 @@ export default function Sidebar({ myId, myUsername }) {
             <Chatrooms />
           </Tab.Pane>
           <Tab.Pane eventKey={CONTACTS_KEY}>
-            <Users myUsername={myUsername} />
+            <Contacts myUsername={myUsername} />
           </Tab.Pane>
         </Tab.Content>
         <div className="p-2 border-top small">
@@ -48,7 +48,7 @@ export default function Sidebar({ myId, myUsername }) {
       </Tab.Container>
       <Modal show={modalOpen} onHide={closeModal}>
         {activeKey === "chatrooms" ?
-          <NewChatroomModal closeModal={closeModal}/> :
+          <NewChatroomModal closeModal={closeModal} myUsername={myUsername}/> :
           <NewContactModal closeModal={closeModal}/>
         }
       </Modal>

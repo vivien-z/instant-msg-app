@@ -3,6 +3,7 @@ import Login from './Login'
 import useLocalStorage from '../hooks/useLocalStorage'
 import MainInterface from './MainInterface'
 import { UsersProvider } from '../contexts/UsersProvider';
+import { ChatroomsProvider } from '../contexts/ChatroomsProvider';
 
 function App() {
   const [myUsername, setMyUsername] = useLocalStorage('my-username')
@@ -23,7 +24,9 @@ function App() {
 
   return (
     <UsersProvider>
-      {myId ? mainInterfacePage : loginPage}
+      <ChatroomsProvider>
+        {myId ? mainInterfacePage : loginPage}
+      </ChatroomsProvider>
     </UsersProvider>
   )
 }
