@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import useLocalStorage from '../hooks/useLocalStorage'
 import { useUsers } from '../contexts/UsersProvider';
 
@@ -10,6 +10,7 @@ export function useChatrooms() {
 
 export function ChatroomsProvider({ children }) {
   const [chatrooms, setChatrooms] = useLocalStorage('chatrooms', [])
+  const [selectedChatroomIndex, setSelectedChatroomIndex] = useState(0)
   const { users } = useUsers()
 
   function createChatroom(selectedUserIds) {
@@ -18,21 +19,23 @@ export function ChatroomsProvider({ children }) {
     })
   }
 
-  const formattedChatrooms = chatrooms.map(chatroom => {
+  const formattedChatrooms = chatrooms.map((chatroom, i) => {
 
-    const roomUsers = chatroom.roomUsers.map(selectedId => {
+    const roomUsers = chatroom.roomUsers.map(selectedUserId => {
       const roomUser = users.find(user => {
-        return user.id === selectedId
+        return user.id === selectedUserId
       })
-      const username = (roomUser && roomUser.username) || selectedId
-      return { id: selectedId, username: username }
+      const username = (roomUser && roomUser.username) || selectedUserId
+      return { id: selectedUserId, username: username }
     })
-
-    return { ...chatroom, roomUsers }
+    const selected = i === selectedChatroomIndex
+    return { ...chatroom, roomUsers, selected }
   })
 
   const outputValue = {
     chatrooms: formattedChatrooms,
+    selectedChatroom: formattedChatrooms[selectedChatroomIndex],
+    selectChatroomIndex: setSelectedChatroomIndex,
     createChatroom
   }
 
