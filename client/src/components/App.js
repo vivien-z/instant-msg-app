@@ -2,39 +2,30 @@ import React from 'react'
 import Login from './Login'
 import useLocalStorage from '../hooks/useLocalStorage'
 import MainInterface from './MainInterface'
-// import { ContactsProvider } from '../contexts/ContactsProvider';
+import { UsersProvider } from '../contexts/UsersProvider';
 
 function App() {
-  const [username, setUsername] = useLocalStorage('username')
-  const [id, setId] = useLocalStorage('id')
+  const [myUsername, setMyUsername] = useLocalStorage('my-username')
+  const [myId, setMyId] = useLocalStorage('my-id')
 
   const mainInterfacePage = (
-
-      <MainInterface id={id} username={username} />
-
+    <MainInterface myId={myId} myUsername={myUsername} />
   )
 
   const loginPage = (
-
-      <Login
-        value={username}
-        onChange={(value) => setUsername(value)}
-        // onUsernameSubmit={setUsername}
-        onIdSubmit={setId}
-      />
-
+    <Login
+      value={myUsername}
+      onChange={(value) => setMyUsername(value)}
+      // onUsernameSubmit={setUsername}
+      onIdSubmit={setMyId}
+    />
   )
 
   return (
-    <div>
-      {id ? mainInterfacePage : loginPage}
-
-    </div>
-
+    <UsersProvider>
+      {myId ? mainInterfacePage : loginPage}
+    </UsersProvider>
   )
 }
 
 export default App;
-
-    // {/*<ContactsProvider id={id} username={username}>*/}
-      // {/*{id ? mainInterfacePage : loginPage}*/}

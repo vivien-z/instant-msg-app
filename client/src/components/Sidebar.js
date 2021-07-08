@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { Tab, Nav, Button, Modal } from 'react-bootstrap'
 import Chatrooms from './Chatrooms'
-import Contacts from './Contacts'
+import Users from './Users'
 import NewChatroomModal from './NewChatroomModal'
 import NewContactModal from './NewContactModal'
 
 const CHATROOMS_KEY = "chatrooms"
 const CONTACTS_KEY = "Contacts"
 
-export default function Sidebar({ id, username }) {
+export default function Sidebar({ myId, myUsername }) {
   const [activeKey, setActiveKey] = useState(CHATROOMS_KEY)
   const [modalOpen, setModalOpen] = useState(false)
 
@@ -36,11 +36,11 @@ export default function Sidebar({ id, username }) {
             <Chatrooms />
           </Tab.Pane>
           <Tab.Pane eventKey={CONTACTS_KEY}>
-            <Contacts />
+            <Users myUsername={myUsername} />
           </Tab.Pane>
         </Tab.Content>
         <div className="p-2 border-top small">
-          Me: <span className="text-muted">{username}</span>
+          Me: <span className="text-muted">{myUsername}</span>
         </div>
         <Button className='rounded-0' onClick={()=>setModalOpen(true)}>
           New {btnName}

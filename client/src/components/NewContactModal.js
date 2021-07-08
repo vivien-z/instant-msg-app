@@ -1,16 +1,16 @@
 import React, { useRef } from 'react'
 import { Modal, Form, Button } from 'react-bootstrap'
-// import { useContacts } from '../contexts/ContactsProvider'
+import { useUsers } from '../contexts/UsersProvider'
 
 export default function NewContactModal({ closeModal }) {
   const idRef = useRef()
   const usernameRef = useRef()
-  // const { createContact } = useContacts()
+  const { createUser } = useUsers()
 
   function handleSubmit(e) {
     e.preventDefault()
 
-    // createContact(idRef.current.value, usernameRef.current.value) //could add 2nd argument(usernameCustomizedRef.current.value)
+    createUser(idRef.current.value, usernameRef.current.value) //could add 2nd argument(usernameCustomizedRef.current.value)
     closeModal()
   }
 
