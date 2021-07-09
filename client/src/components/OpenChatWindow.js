@@ -1,27 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Form, InputGroup, Button } from 'react-bootstrap'
 import { useChatrooms } from '../contexts/ChatroomsProvider';
 
 export default function OpenChatWindow({ myId }) {
   const [msgText, setMsgText] = useState('')
+  const lastMsgRef = useRef()
   const { sendMessage, selectedChatroom } = useChatrooms()
 
   function handleSubmit(e) {
     e.preventDefault()
-    //recipients = roomUsers - me
-    // const recipients = selectedChatroom.roomUsers.filter(user => user.id !== myId)
-    // console.log(recipients)
+
     sendMessage(selectedChatroom, msgText)
     setMsgText('')
   }
 
+  useEffect(() => {
+    if (lastMsgRef.current) {
+      lastMsgRef.current.scrollIntoView({ smooth: true })
+    }
+  })
+
   return (
     <div className="d-flex flex-column flex-grow-1">
       <div className="flex-grow-1 overflow-auto">
-        <div className="h-100 d-flex flex-column align-items-start justify-content-end px-3">
+        <div className="d-flex flex-column align-items-start justify-content-end px-3">
           { selectedChatroom.messages.map((message, i) => {
+            const lastMsg = (selectedChatroom.messages.length - 1) === i
             return (
               <div
+                ref={ lastMsg ? lastMsgRef : null }
                 key={i}
                 className={`my-1 d-flex flex-column ${message.fromMe ? 'align-self-end' : ''}`}
               >
