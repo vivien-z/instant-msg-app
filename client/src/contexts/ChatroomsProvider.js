@@ -30,7 +30,7 @@ export function ChatroomsProvider({ myId, myUsername, children }) {
         if (chatroom === selectedChatroom) {
           return {
             ...chatroom,
-            chatroomMessages: [...chatroom.chatroomMessages, newMessage]
+            messages: [...chatroom.messages, newMessage]
           }
         } else {
           return chatroom
@@ -55,8 +55,18 @@ export function ChatroomsProvider({ myId, myUsername, children }) {
       return { id: rmUserId, username: username }
     })
 
+    const messages = chatroom.messages.map(msg => {
+      const msgSender = users.find(user => {
+        return user.id === msg.sender.id
+      })
+      const senderName = (msgSender && msgSender.username) || msgSender.id
+      const fromMe = myId === msg.sender.id
+      return { ...msg, senderName: senderName, fromMe }
+    })
+
     const selected = i === selectedChatroomIndex
-    return { ...chatroom, roomUsers, selected }
+
+    return { ...chatroom, roomUsers, messages, selected }
   })
 
   const outputValue = {
