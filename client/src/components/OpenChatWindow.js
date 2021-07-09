@@ -1,10 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Form, InputGroup, Button } from 'react-bootstrap'
 import { useChatrooms } from '../contexts/ChatroomsProvider';
 
 export default function OpenChatWindow({ myId }) {
   const [msgText, setMsgText] = useState('')
-  const lastMsgRef = useRef()
+  // const lastMsgRef = useRef()
+
+  const setRef = useCallback(node => {
+    if (node) {
+      node.scrollIntoView({ smooth: true })
+    }
+  }, [])
+
   const { sendMessage, selectedChatroom } = useChatrooms()
 
   function handleSubmit(e) {
@@ -14,12 +21,6 @@ export default function OpenChatWindow({ myId }) {
     setMsgText('')
   }
 
-  useEffect(() => {
-    if (lastMsgRef.current) {
-      lastMsgRef.current.scrollIntoView({ smooth: true })
-    }
-  })
-
   return (
     <div className="d-flex flex-column flex-grow-1">
       <div className="flex-grow-1 overflow-auto">
@@ -28,7 +29,7 @@ export default function OpenChatWindow({ myId }) {
             const lastMsg = (selectedChatroom.messages.length - 1) === i
             return (
               <div
-                ref={ lastMsg ? lastMsgRef : null }
+                ref={ lastMsg ? setRef : null }
                 key={i}
                 className={`my-1 d-flex flex-column ${message.fromMe ? 'align-self-end' : ''}`}
               >
