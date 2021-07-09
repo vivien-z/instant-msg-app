@@ -8,7 +8,7 @@ export function useChatrooms() {
   return useContext(ChatroomsContext)
 }
 
-export function ChatroomsProvider({ children }) {
+export function ChatroomsProvider({ myId, children }) {
   const [chatrooms, setChatrooms] = useLocalStorage('chatrooms', [])
   const [selectedChatroomIndex, setSelectedChatroomIndex] = useState(0)
   const { users } = useUsers()
@@ -17,6 +17,14 @@ export function ChatroomsProvider({ children }) {
     setChatrooms(prevChatrooms => {
       return [...prevChatrooms, { roomUsers: selectedUserIds, messages: [] }]
     })
+  }
+
+  function addMessageToChatroom({ recipients, message, sender }) {
+
+  }
+
+  function sendMessage(recipients, message) {
+    addMessageToChatroom({ recipients, message, sender: myId })
   }
 
   const formattedChatrooms = chatrooms.map((chatroom, i) => {
@@ -36,7 +44,8 @@ export function ChatroomsProvider({ children }) {
     chatrooms: formattedChatrooms,
     selectedChatroom: formattedChatrooms[selectedChatroomIndex],
     selectChatroomIndex: setSelectedChatroomIndex,
-    createChatroom
+    createChatroom,
+    sendMessage
   }
 
   return (
