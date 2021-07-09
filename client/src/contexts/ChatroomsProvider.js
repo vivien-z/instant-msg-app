@@ -15,19 +15,20 @@ export function ChatroomsProvider({ myId, myUsername, children }) {
 
   function createChatroom(roomUserIds) {
     setChatrooms(prevChatrooms => {
-      return [...prevChatrooms, { roomUserIds: roomUserIds, messages: [] }]
+      return [...prevChatrooms, { roomUsers: roomUserIds, messages: [] }]
     })
   }
 
   const addMessageToChatroom = useCallback(({ selectedChatroom, msgText, sender }) => {
 
-    // const recipients = selectedChatroom.roomUsers.filter(user => user.id !== sender.id)
-
     setChatrooms(prevChatrooms => {
       const newMessage = { sender, msgText }
 
       const updatedChatrooms = prevChatrooms.map(chatroom => {
-        if (chatroom === selectedChatroom) {
+        const chatroomUserIds = chatroom.roomUsers
+        const selectedChatroomUserIds = selectedChatroom.roomUsers.map(user => user.id)
+
+        if (arrayEquality(chatroomUserIds,selectedChatroomUserIds)) {
           return {
             ...chatroom,
             messages: [...chatroom.messages, newMessage]
@@ -41,13 +42,13 @@ export function ChatroomsProvider({ myId, myUsername, children }) {
   }, [setChatrooms])
 
   function sendMessage(selectedChatroom, msgText) {
-    const sender = selectedChatroom.roomUsers.filter(user => user.id === myId)
+    const sender = selectedChatroom.roomUsers.find(user => user.id === myId)
     addMessageToChatroom({ selectedChatroom, msgText, sender })
   }
 
   const formattedChatrooms = chatrooms.map((chatroom, i) => {
 
-    const roomUsers = chatroom.roomUserIds.map(rmUserId => {
+    const roomUsers = chatroom.roomUsers.map(rmUserId => {
       const roomUser = users.find(user => {
         return user.id === rmUserId
       })
@@ -82,4 +83,17 @@ export function ChatroomsProvider({ myId, myUsername, children }) {
       { children }
     </ChatroomsContext.Provider>
   )
+}
+
+function arrayEquality(a, b) {
+  if (a.length !== b.length) {
+    return false
+  } else {
+    a.sort()
+    b.sort()
+
+    return a.every((e, i) => {
+      return e === b[i]
+    })
+  }
 }

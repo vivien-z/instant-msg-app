@@ -18,11 +18,30 @@ export default function OpenChatWindow({ myId }) {
   return (
     <div className="d-flex flex-column flex-grow-1">
       <div className="flex-grow-1 overflow-auto">
-
+        <div className="h-100 d-flex flex-column align-items-start justify-content-end px-3">
+          { selectedChatroom.messages.map((message, i) => {
+            return (
+              <div
+                key={i}
+                className={`my-1 d-flex flex-column ${message.fromMe ? 'align-self-end' : ''}`}
+              >
+                <div
+                  className={`rounded px-3 py-1 ${message.fromMe ? 'bg-primary text-white' : 'border'}`}
+                >
+                  {message.msgText}
+                </div>
+                <div
+                  className={`text-muted small ${message.fromMe ? 'text-end pe-1' : ''}`}
+                >
+                  {message.fromMe ? 'Me' : message.senderName}
+                </div>
+              </div>
+            )
+          }) }
+        </div>
       </div>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="m-2">
-          {/*// send button to be attached with the form*/}
           <InputGroup>
             <Form.Control
               as="textarea"

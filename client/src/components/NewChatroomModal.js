@@ -27,7 +27,6 @@ export default function NewChatroomModal({ closeModal, myId, myUsername }) {
   function handleSubmit(e) {
     e.preventDefault()
     const roomUserIds = [...selectedUserIds, myId]
-    console.log(roomUserIds)
     createChatroom(roomUserIds)
     closeModal()
   }
