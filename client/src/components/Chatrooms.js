@@ -2,8 +2,12 @@ import React from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { useChatrooms } from '../contexts/ChatroomsProvider';
 
-export default function Chatrooms() {
+export default function Chatrooms({ myUsername }) {
   const { chatrooms, selectChatroomIndex } = useChatrooms()
+
+  function otherRoomUsers(chatroom) {
+    return chatroom.roomUsers.filter(user => user.username !== myUsername)
+  }
 
   return (
     <ListGroup variant="flush">
@@ -15,10 +19,11 @@ export default function Chatrooms() {
           onClick={() => selectChatroomIndex(i)}
           active={chatroom.selected}
         >
-          {chatroom.roomUsers.map(user => user.username).join(', ')}
+          {otherRoomUsers(chatroom).map(user => user.username).join(', ')}
         </ListGroup.Item>
       ))}
 
     </ListGroup>
   )
 }
+          // {chatroom.roomUsers.map(user => user.username).join(', ')}

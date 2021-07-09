@@ -3,7 +3,7 @@ import { Modal, Form, Button } from 'react-bootstrap'
 import { useUsers } from '../contexts/UsersProvider';
 import { useChatrooms } from '../contexts/ChatroomsProvider';
 
-export default function NewChatroomModal({ closeModal, myUsername }) {
+export default function NewChatroomModal({ closeModal, myId, myUsername }) {
   const { users } = useUsers()
   const contacts = users.filter(user => {
     return user.username !== myUsername
@@ -23,10 +23,12 @@ export default function NewChatroomModal({ closeModal, myUsername }) {
     })
   }
 
+
   function handleSubmit(e) {
     e.preventDefault()
-
-    createChatroom(selectedUserIds)
+    const roomUserIds = [...selectedUserIds, myId]
+    console.log(roomUserIds)
+    createChatroom(roomUserIds)
     closeModal()
   }
   return (

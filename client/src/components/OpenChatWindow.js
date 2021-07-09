@@ -2,16 +2,17 @@ import React, { useState } from 'react'
 import { Form, InputGroup, Button } from 'react-bootstrap'
 import { useChatrooms } from '../contexts/ChatroomsProvider';
 
-export default function OpenChatWindow() {
-  const [message, setMessage] = useState('')
+export default function OpenChatWindow({ myId }) {
+  const [msgText, setMsgText] = useState('')
   const { sendMessage, selectedChatroom } = useChatrooms()
 
   function handleSubmit(e) {
     e.preventDefault()
-    const receiverIds = selectedChatroom.roomUsers.map(user => user.id)
-
-    sendMessage(receiverIds, message)
-    setMessage('')
+    //recipients = roomUsers - me
+    // const recipients = selectedChatroom.roomUsers.filter(user => user.id !== myId)
+    // console.log(recipients)
+    sendMessage(selectedChatroom, msgText)
+    setMsgText('')
   }
 
   return (
@@ -25,8 +26,8 @@ export default function OpenChatWindow() {
           <InputGroup>
             <Form.Control
               as="textarea"
-              value={message}
-              onChange={e => setMessage(e.target.value)}
+              value={msgText}
+              onChange={e => setMsgText(e.target.value)}
               style={{ height: '75px', resize: 'none'}}
               required
             />

@@ -24,7 +24,7 @@ function App() {
 
   return (
     <UsersProvider>
-      <ChatroomsProvider myUsername={myUsername}>
+      <ChatroomsProvider myId={myId} myUsername={myUsername}>
         {myId ? mainInterfacePage : loginPage}
       </ChatroomsProvider>
     </UsersProvider>

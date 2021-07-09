@@ -7,7 +7,6 @@ export default function Contacts({ myUsername }) {
   const contacts = users.filter(user => {
     return user.username !== myUsername
   })
-  // console.log(contacts)
 
   return (
     <ListGroup variant="flush">

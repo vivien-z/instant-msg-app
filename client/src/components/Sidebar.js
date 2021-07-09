@@ -33,7 +33,7 @@ export default function Sidebar({ myId, myUsername }) {
 
         <Tab.Content className='border-right overflow-auto flex-grow-1'>
           <Tab.Pane eventKey={CHATROOMS_KEY}>
-            <Chatrooms />
+            <Chatrooms myUsername={myUsername} />
           </Tab.Pane>
           <Tab.Pane eventKey={CONTACTS_KEY}>
             <Contacts myUsername={myUsername} />
@@ -48,7 +48,7 @@ export default function Sidebar({ myId, myUsername }) {
       </Tab.Container>
       <Modal show={modalOpen} onHide={closeModal}>
         {activeKey === "chatrooms" ?
-          <NewChatroomModal closeModal={closeModal} myUsername={myUsername}/> :
+          <NewChatroomModal closeModal={closeModal} myId={myId} myUsername={myUsername}/> :
           <NewContactModal closeModal={closeModal}/>
         }
       </Modal>
