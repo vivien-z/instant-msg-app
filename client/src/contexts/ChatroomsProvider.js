@@ -1,6 +1,7 @@
-import React, { useContext, useState, useCallback } from 'react'
+import React, { useContext, useState, useCallback, useEffect } from 'react'
 import useLocalStorage from '../hooks/useLocalStorage'
 import { useUsers } from '../contexts/UsersProvider';
+import { useSocket } from '../contexts/SocketProvider';
 
 const ChatroomsContext = React.createContext()
 
@@ -12,6 +13,7 @@ export function ChatroomsProvider({ myId, myUsername, children }) {
   const [chatrooms, setChatrooms] = useLocalStorage('chatrooms', [])
   const [selectedChatroomIndex, setSelectedChatroomIndex] = useState(0)
   const { users } = useUsers()
+  const socket = useSocket()
 
   function createChatroom(roomUserIds) {
     setChatrooms(prevChatrooms => {
@@ -19,8 +21,7 @@ export function ChatroomsProvider({ myId, myUsername, children }) {
     })
   }
 
-  const addMessageToChatroom = useCallback(({ selectedChatroom, msgText, sender }) => {
-
+  const addMessageToChatroom = useCallback(({ selectedChatroom, sender, msgText }) => {
     setChatrooms(prevChatrooms => {
       const newMessage = { sender, msgText }
 
@@ -41,8 +42,19 @@ export function ChatroomsProvider({ myId, myUsername, children }) {
     })
   }, [setChatrooms])
 
+  useEffect(() => {
+    if (socket === null) return
+    socket.on('receive-message',addMessageToChatroom)
+    // socket.on('receive-message', console.log)
+    return () => socket.off('receive-message')
+  }, [socket, addMessageToChatroom])
+
   function sendMessage(selectedChatroom, msgText) {
     const sender = selectedChatroom.roomUsers.find(user => user.id === myId)
+    const roomUsers = selectedChatroom.roomUsers
+
+    socket.emit('send-message', { selectedChatroom, sender, msgText, roomUsers })
+    // socket.emit('send-message', {selectedChatroom, msgText, sender })
     addMessageToChatroom({ selectedChatroom, msgText, sender })
   }
 

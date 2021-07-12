@@ -4,6 +4,7 @@ import useLocalStorage from '../hooks/useLocalStorage'
 import MainInterface from './MainInterface'
 import { UsersProvider } from '../contexts/UsersProvider';
 import { ChatroomsProvider } from '../contexts/ChatroomsProvider';
+import { SocketProvider } from '../contexts/SocketProvider';
 
 function App() {
   const [myUsername, setMyUsername] = useLocalStorage('my-username')
@@ -23,11 +24,13 @@ function App() {
   )
 
   return (
-    <UsersProvider>
-      <ChatroomsProvider myId={myId} myUsername={myUsername}>
-        {myId ? mainInterfacePage : loginPage}
-      </ChatroomsProvider>
-    </UsersProvider>
+    <SocketProvider myId={myId}>
+      <UsersProvider>
+        <ChatroomsProvider myId={myId} myUsername={myUsername}>
+          {myId ? mainInterfacePage : loginPage}
+        </ChatroomsProvider>
+      </UsersProvider>
+    </SocketProvider>
   )
 }
 
