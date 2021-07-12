@@ -1,19 +1,30 @@
-const io = require('socket.io')(5000)
+
+const io = require('socket.io')(5000, {
+
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "PUT"],
+    credentials: true
+  }
+})
 
 io.on('connection', socket => {
-  const id = socket.handshake.query.id
-  socket.join(id)
+  // const id = socket.handshake.query.myId
+  // socket.join(id)
 
-  socket.on('send-message', ({ chatroom, msgText }) => {
-    // const recipients = roomUsers.filter(user => user.id === sender.id)
-    socket.broadcast.emit('receive-message', { chatroom, msgText })
+  socket.on('send-message', ({ selectedChatroom, sender, msgText, roomUsers }) => {
 
-    roomUsers.forEach(roomUser => {
-      const recipients = roomUsers.filter(user => user !== roomUser)
-      recipients.push(id)
-      socket.broadcast.to(roomUser).emit('receive-message', {
-        recipients: recipients, sender: id, msgText
-      })
+    socket.broadcast.emit('receive-message', {
+      selectedChatroom, sender, msgText
     })
+
+    // roomUsers.forEach(roomUser => {
+    //   const recipients = roomUsers.filter(user => user !== roomUser)
+    //   roomUsers = recipients
+    //   roomUsers.push(id)
+    //   socket.broadcast.to(roomUser).emit('receive-message', {
+    //     selectedChatroom: selectedChatroom, sender: sender, msgText
+    //   })
+    // })
   })
 })
