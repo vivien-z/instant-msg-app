@@ -19,7 +19,6 @@ export default function Login( { value, onIdSubmit, onChange }) {
     const username = usernameRef.current.value
 
     e.preventDefault()
-    // onUsernameSubmit(username)
     onChange(username)
     onIdSubmit(id)
     createUser(id, username) //

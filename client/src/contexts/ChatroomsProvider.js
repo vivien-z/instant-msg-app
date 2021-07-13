@@ -45,7 +45,6 @@ export function ChatroomsProvider({ myId, myUsername, children }) {
   useEffect(() => {
     if (socket === null) return
     socket.on('receive-message',addMessageToChatroom)
-    // socket.on('receive-message', console.log)
     return () => socket.off('receive-message')
   }, [socket, addMessageToChatroom])
 
@@ -54,7 +53,6 @@ export function ChatroomsProvider({ myId, myUsername, children }) {
     const roomUsers = selectedChatroom.roomUsers
 
     socket.emit('send-message', { selectedChatroom, sender, msgText, roomUsers })
-    // socket.emit('send-message', {selectedChatroom, msgText, sender })
     addMessageToChatroom({ selectedChatroom, msgText, sender })
   }
 

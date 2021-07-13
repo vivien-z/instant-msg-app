@@ -65,5 +65,3 @@ export default function OpenChatWindow({ myId }) {
     </div>
   )
 }
-            // <InputGroup.Append>
-            // </InputGroup.Append>

@@ -26,4 +26,3 @@ export default function Chatrooms({ myUsername }) {
     </ListGroup>
   )
 }
-          // {chatroom.roomUsers.map(user => user.username).join(', ')}
