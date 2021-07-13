@@ -4,6 +4,8 @@ import Chatrooms from './Chatrooms'
 import Contacts from './Contacts'
 import NewChatroomModal from './NewChatroomModal'
 import NewContactModal from './NewContactModal'
+import '../styles/global.css'
+import styles from '../styles/Sidebar.module.css';
 
 const CHATROOMS_KEY = "chatrooms"
 const CONTACTS_KEY = "Contacts"
@@ -20,6 +22,9 @@ export default function Sidebar({ myId, myUsername }) {
 
   return (
     <div style={{ width: '260px'}} className='d-flex flex-column border'>
+      <div className={`${styles.profile} purple-bg p-3 border-bottom`}>
+        <span className={`${styles.avatar}`}>{myUsername[0].toUpperCase()}</span><span className="">{myUsername}</span>
+      </div>
       <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
 
         <Nav variant="tabs" className='justify-content-center'>
@@ -39,9 +44,6 @@ export default function Sidebar({ myId, myUsername }) {
             <Contacts myUsername={myUsername} />
           </Tab.Pane>
         </Tab.Content>
-        <div className="p-2 border-top small">
-          Me: <span className="text-muted">{myUsername}</span>
-        </div>
         <Button className='rounded-0' onClick={()=>setModalOpen(true)}>
           New {btnName}
         </Button>

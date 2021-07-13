@@ -1,0 +1,12 @@
+/*==== my colors ====*/
+.purple-bg {
+  background-color:  rgb(94, 84, 142) !important;
+}
+.l-purple-bg {
+  background-color: rgb(224, 177, 203);
+}
+
+.btn.btn-primary {
+  background-color: rgb(94, 84, 142) !important;
+  border-color: rgb(94, 84, 142) !important;
+}
