@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { Tab, Nav, Button, Modal, Row, Col } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faComments, faUserFriends } from '@fortawesome/free-solid-svg-icons'
+
 import Chatrooms from './Chatrooms'
 import Contacts from './Contacts'
 import NewChatroomModal from './NewChatroomModal'
@@ -15,6 +18,8 @@ export default function Sidebar({ myId, myUsername }) {
   const [modalOpen, setModalOpen] = useState(false)
 
   const btnName = activeKey === CHATROOMS_KEY ? "Chatroom" : "Contact"
+  const chatrooms = <FontAwesomeIcon icon={faComments} />
+  const contacts = <FontAwesomeIcon icon={faUserFriends} />
 
   function closeModal() {
     setModalOpen(false)
@@ -31,10 +36,10 @@ export default function Sidebar({ myId, myUsername }) {
           <Col sm={3}>
             <Nav variant="tabs" className={`${styles.navTab} justify-content-center align-items-start`}>
               <Nav.Item>
-                <Nav.Link eventKey={CHATROOMS_KEY}>Chats</Nav.Link>
+                <Nav.Link eventKey={CHATROOMS_KEY}>{chatrooms}</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey={CONTACTS_KEY}>Contacts</Nav.Link>
+                <Nav.Link eventKey={CONTACTS_KEY}>{contacts}</Nav.Link>
               </Nav.Item>
             </Nav>
           </Col>
