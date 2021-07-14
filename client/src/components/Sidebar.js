@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import { Tab, Nav, Button, Modal, Row, Col } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faComments, faUserFriends } from '@fortawesome/free-solid-svg-icons'
+import styles from '../styles/Sidebar.module.css';
 
 import Chatrooms from './Chatrooms'
 import Contacts from './Contacts'
 import NewChatroomModal from './NewChatroomModal'
 import NewContactModal from './NewContactModal'
-// import '../styles/global.css'
-import styles from '../styles/Sidebar.module.css';
 
 const CHATROOMS_KEY = "Chats"
 const CONTACTS_KEY = "Contacts"

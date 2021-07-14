@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { Form, InputGroup, Button } from 'react-bootstrap'
+import styles from '../styles/OpenChatWindow.module.css';
 import { useChatrooms } from '../contexts/ChatroomsProvider';
 
 export default function OpenChatWindow({ myId, myUsername }) {
@@ -24,24 +25,24 @@ export default function OpenChatWindow({ myId, myUsername }) {
 
   return (
 
-    <div className="d-flex flex-column flex-grow-1">
+    <div className="d-flex flex-column flex-grow-1 m-1 p-2 rounded border">
       <div className="flex-grow-1 overflow-auto">
-        <div className="d-flex flex-column align-items-start justify-content-end px-3">
+        <div className="d-flex flex-column align-items-start justify-content-end">
           { selectedChatroom.messages.map((message, i) => {
             const lastMsg = (selectedChatroom.messages.length - 1) === i
             return (
               <div
                 ref={ lastMsg ? setRef : null }
                 key={i}
-                className={`my-1 d-flex flex-column ${message.fromMe ? 'align-self-end' : ''}`}
+                className={`d-flex flex-column ${message.fromMe ? 'align-self-end' : ''}`}
               >
                 <div
-                  className={`rounded px-3 py-1 ${message.fromMe ? 'bg-primary text-white' : 'border'}`}
+                  className={`rounded px-3 py-1 ${message.fromMe ? 'bg-primary text-white' : 'border bg-gray-l'}`}
                 >
                   {message.msgText}
                 </div>
                 <div
-                  className={`text-muted small ${message.fromMe ? 'text-end pe-1' : ''}`}
+                  className={`text-muted small ${message.fromMe ? 'text-end pe-1' : 'ps-1'}`}
                 >
                   {message.fromMe ? 'You' : message.senderName}
                 </div>
@@ -51,7 +52,7 @@ export default function OpenChatWindow({ myId, myUsername }) {
         </div>
       </div>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="m-2">
+        <Form.Group className="">
           <InputGroup>
             <Form.Control
               as="textarea"
