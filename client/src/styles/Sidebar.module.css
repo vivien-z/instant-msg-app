@@ -1,17 +1,12 @@
-.profile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color:  white;
-  font-weight: bold;
+/*==== nav-tab =====*/
+.border {
+  border-radius: 20px;
 }
-
 .avatar {
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  margin-right: 8px;
-  background-color: rgb(224, 177, 203);
+  background-color: rgb(190, 233, 232);
   color:  rgb(94, 84, 142);
   font-weight: bold;
   font-size: 1.25rem;
@@ -19,25 +14,21 @@
   justify-content: center;
   align-items: center;
 }
-
-/*==== nav-tab =====*/
-.nav-tabs .nav-link.active {
-}
-
 .navTab {
-  height:  100%;
-  background-color: rgb(159, 134, 192);
+  border-radius: 32px;
+  border-left:  4px solid white;
+  border-right:  4px solid white;
 }
-
-.active {
-  background-color: rgb(224, 177, 203) !important;
-
+.tabTitle{
+  text-align: center;
+  padding: 16px 0;
+  margin: 0;
+  border-radius: 4px 4px 0 0;
+  border-bottom: 1px solid rgb(94, 84, 142);
+  color: white;
+  font-size:  1.25rem;
+  background-color: rgb(94, 84, 142);
 }
-
-a.nav-link .svg-inline--fa {
-  color:  black !important;
-}
-
-.active .svg-inline--fa {
-  background-color: rgb(94, 84, 142) !important;
+.buttom {
+  min-height: 42px;
 }

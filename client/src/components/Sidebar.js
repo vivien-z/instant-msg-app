@@ -26,40 +26,40 @@ export default function Sidebar({ myId, myUsername }) {
   }
 
   return (
-    <div style={{ width: '260px'}} className='d-flex flex-column border'>
-      <div className={`${styles.profile} bg-purple p-3 border-bottom`}>
-        <span className={`${styles.avatar}`}>{myUsername[0].toUpperCase()}</span><span className="">{myUsername}</span>
-      </div>
+    <div style={{ width: '300px'}} className={`${styles.border} d-flex flex-column`}>
 
       <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
-        <Row>
-          <Col sm={3}>
-            <Nav variant="tabs" className={`${styles.navTab} justify-content-center align-items-start`}>
-              <Nav.Item className={`${styles.navIcon}`}>
+        <Row className="flex-grow-1">
+          <Col sm={3} className={`${styles.navTab} pt-4 bg-purple`}>
+            <span className={`${styles.avatar} mb-3`}>{myUsername[0].toUpperCase()}</span>
+            <hr />
+            <Nav variant="pills" className={`justify-content-center align-items-start`}>
+              <Nav.Item className={`${styles.navIcon} mb-2`}>
                 <Nav.Link eventKey={CHATROOMS_KEY}>{chatrooms}</Nav.Link>
               </Nav.Item>
-              <Nav.Item className={`${styles.navIcon}`}>
+              <Nav.Item className={`${styles.navIcon} mb-2`}>
                 <Nav.Link eventKey={CONTACTS_KEY}>{contacts}</Nav.Link>
               </Nav.Item>
             </Nav>
           </Col>
-          <Col sm={9}>
-            <Tab.Content className='border-right overflow-auto flex-grow-1'>
-              <Tab.Pane eventKey={CHATROOMS_KEY}>
-                <Chatrooms myUsername={myUsername} />
-              </Tab.Pane>
-              <Tab.Pane eventKey={CONTACTS_KEY}>
-                <Contacts myUsername={myUsername} />
-              </Tab.Pane>
-            </Tab.Content>
-
+          <Col sm={9} className="px-0 pl-1">
+            <div className='d-flex flex-column py-1 bg-gray-l h-100'>
+              <Tab.Content className='overflow-auto flex-grow-1'>
+                <Tab.Pane eventKey={CHATROOMS_KEY}>
+                  <p className={`${styles.tabTitle}`}>Chatrooms</p>
+                  <Chatrooms myUsername={myUsername} />
+                </Tab.Pane>
+                <Tab.Pane eventKey={CONTACTS_KEY}>
+                  <p className={`${styles.tabTitle}`}>Contacts</p>
+                  <Contacts myUsername={myUsername} />
+                </Tab.Pane>
+              </Tab.Content>
+              <Button className={`${styles.buttom} align-items-end w-100`} onClick={()=>setModalOpen(true)}>
+                New {btnName}
+              </Button>
+            </div>
           </Col>
-
         </Row>
-
-        <Button className='rounded-0' onClick={()=>setModalOpen(true)}>
-          New {btnName}
-        </Button>
       </Tab.Container>
 
       <Modal show={modalOpen} onHide={closeModal}>

@@ -1,12 +1,73 @@
+/*== reset bootstrap color ==*/
+$primary: rgb(94, 84, 142);
+@import '~bootstrap/scss/bootstrap';
+
 /*==== my colors ====*/
-.bg-purple {
-  background-color:  rgb(94, 84, 142) !important;
+$purple-l: rgb(159, 134, 192);
+$pink: rgb(190, 149, 196);
+$mint: rgb(190, 233, 232);
+$gray-l: rgb(247, 247, 255);
+
+/*==== bootstrap navTab ====*/
+.row {
+ margin: 0 !important;
 }
-.bg-purple-l {
-  background-color: rgb(159, 134, 192);
+hr {
+  color: rgb(225, 229, 242);
+}
+.nav-tabs {
+  border-color: $purple-l !important;
+}
+.nav-link {
+  color: $mint !important;
+}
+.nav-link.active {
+  color: $primary !important;
+  background-color: $mint !important;
+  border: 1px solid $mint !important;
+}
+.list-group-item {
+  background-color: transparent !important;
+  color: $primary !important;
+  font-weight: bold;
+}
+.list-group-item.active {
+  background-color: $mint !important;
+  border: none;
+  color: $primary !important;
 }
 
-.btn.btn-primary {
-  background-color: rgb(94, 84, 142) !important;
-  border-color: rgb(94, 84, 142) !important;
+/*==== bootstrap nav-modal =====*/
+.modal-header  {
+  padding: 1rem 1.2rem !important;
+  font-size: 1.12rem;
+  font-weight: bold;
+  color: $primary !important;
+
+  button.close {
+    background-color: transparent !important;
+    border: none;
+  }
+  span {
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
 }
+
+/*==== background colors ====*/
+.bg-purple {
+  background-color:  $primary !important;
+}
+.bg-purple-l {
+  background-color: $purple-l;
+}
+.bg-pink {
+  background-color: $pink;
+}
+.bg-mint {
+  background-color: $mint;
+}
+.bg-gray-l {
+  background-color: $gray-l;
+}
+
