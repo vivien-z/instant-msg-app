@@ -53,6 +53,12 @@ hr {
     font-size: 1.1rem;
   }
 }
+/*==== bootstrap btn =====*/
+.btn-secondary {
+  background-color: $mint !important;
+  border: 1px solid $mint;
+  color: $primary;
+}
 
 /*==== background colors ====*/
 .bg-purple {
@@ -69,5 +75,8 @@ hr {
 }
 .bg-gray-l {
   background-color: $gray-l;
+}
+.bg-white {
+  background-color: white;
 }
 

@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { Form, InputGroup, Button } from 'react-bootstrap'
-import styles from '../styles/OpenChatWindow.module.css';
+
 import { useChatrooms } from '../contexts/ChatroomsProvider';
 
 export default function OpenChatWindow({ myId, myUsername }) {
@@ -25,7 +25,7 @@ export default function OpenChatWindow({ myId, myUsername }) {
 
   return (
 
-    <div className="d-flex flex-column flex-grow-1 m-1 p-2 rounded border">
+    <div className="d-flex flex-column flex-grow-1 m-1 p-2 rounded border bg-gray-l">
       <div className="flex-grow-1 overflow-auto">
         <div className="d-flex flex-column align-items-start justify-content-end">
           { selectedChatroom.messages.map((message, i) => {
@@ -34,10 +34,10 @@ export default function OpenChatWindow({ myId, myUsername }) {
               <div
                 ref={ lastMsg ? setRef : null }
                 key={i}
-                className={`d-flex flex-column ${message.fromMe ? 'align-self-end' : ''}`}
+                className={`d-flex flex-column ${message.fromMe ? 'align-self-end' : 'mb-2'}`}
               >
                 <div
-                  className={`rounded px-3 py-1 ${message.fromMe ? 'bg-primary text-white' : 'border bg-gray-l'}`}
+                  className={`rounded px-3 py-1 ${message.fromMe ? 'bg-primary text-white' : 'bg-white'}`}
                 >
                   {message.msgText}
                 </div>
