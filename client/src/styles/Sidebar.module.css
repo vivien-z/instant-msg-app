@@ -20,6 +20,24 @@
   align-items: center;
 }
 
+/*==== nav-tab =====*/
+.nav-tabs .nav-link.active {
+}
+
 .navTab {
   height:  100%;
+  background-color: rgb(159, 134, 192);
+}
+
+.active {
+  background-color: rgb(224, 177, 203) !important;
+
+}
+
+a.nav-link .svg-inline--fa {
+  color:  black !important;
+}
+
+.active .svg-inline--fa {
+  background-color: rgb(94, 84, 142) !important;
 }

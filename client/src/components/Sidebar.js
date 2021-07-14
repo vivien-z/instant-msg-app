@@ -7,7 +7,7 @@ import Chatrooms from './Chatrooms'
 import Contacts from './Contacts'
 import NewChatroomModal from './NewChatroomModal'
 import NewContactModal from './NewContactModal'
-import '../styles/global.css'
+// import '../styles/global.css'
 import styles from '../styles/Sidebar.module.css';
 
 const CHATROOMS_KEY = "Chats"
@@ -27,7 +27,7 @@ export default function Sidebar({ myId, myUsername }) {
 
   return (
     <div style={{ width: '260px'}} className='d-flex flex-column border'>
-      <div className={`${styles.profile} purple-bg p-3 border-bottom`}>
+      <div className={`${styles.profile} bg-purple p-3 border-bottom`}>
         <span className={`${styles.avatar}`}>{myUsername[0].toUpperCase()}</span><span className="">{myUsername}</span>
       </div>
 
@@ -35,10 +35,10 @@ export default function Sidebar({ myId, myUsername }) {
         <Row>
           <Col sm={3}>
             <Nav variant="tabs" className={`${styles.navTab} justify-content-center align-items-start`}>
-              <Nav.Item>
+              <Nav.Item className={`${styles.navIcon}`}>
                 <Nav.Link eventKey={CHATROOMS_KEY}>{chatrooms}</Nav.Link>
               </Nav.Item>
-              <Nav.Item>
+              <Nav.Item className={`${styles.navIcon}`}>
                 <Nav.Link eventKey={CONTACTS_KEY}>{contacts}</Nav.Link>
               </Nav.Item>
             </Nav>
