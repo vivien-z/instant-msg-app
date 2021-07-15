@@ -28,8 +28,8 @@ export default function Sidebar({ myId, myUsername }) {
     <div style={{ width: '300px'}} className={`${styles.border} d-flex flex-column`}>
 
       <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
-        <Row className="flex-grow-1">
-          <Col sm={3} className={`${styles.navTab} pt-4 bg-purple`}>
+        <Row className="h-100">
+          <Col sm={3} className={`${styles.navTab} pt-4 bg-purple h-100`}>
             <span className={`${styles.avatar} mb-3`}>{myUsername[0].toUpperCase()}</span>
             <hr />
             <Nav variant="pills" className={`justify-content-center align-items-start`}>
@@ -41,15 +41,14 @@ export default function Sidebar({ myId, myUsername }) {
               </Nav.Item>
             </Nav>
           </Col>
-          <Col sm={9} className="px-0 pl-1">
+          <Col sm={9} className="px-0 pl-1 h-100">
             <div className='d-flex flex-column py-1 bg-gray-l h-100'>
+              <p className={`${styles.tabTitle}`}>{btnName}</p>
               <Tab.Content className='overflow-auto flex-grow-1'>
                 <Tab.Pane eventKey={CHATROOMS_KEY}>
-                  <p className={`${styles.tabTitle}`}>Chatrooms</p>
                   <Chatrooms myId={myId} myUsername={myUsername} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={CONTACTS_KEY}>
-                  <p className={`${styles.tabTitle}`}>Contacts</p>
                   <Contacts myId={myId} myUsername={myUsername} />
                 </Tab.Pane>
               </Tab.Content>
