@@ -46,11 +46,11 @@ export default function Sidebar({ myId, myUsername }) {
               <Tab.Content className='overflow-auto flex-grow-1'>
                 <Tab.Pane eventKey={CHATROOMS_KEY}>
                   <p className={`${styles.tabTitle}`}>Chatrooms</p>
-                  <Chatrooms myUsername={myUsername} />
+                  <Chatrooms myId={myId} myUsername={myUsername} />
                 </Tab.Pane>
                 <Tab.Pane eventKey={CONTACTS_KEY}>
                   <p className={`${styles.tabTitle}`}>Contacts</p>
-                  <Contacts myUsername={myUsername} />
+                  <Contacts myId={myId} myUsername={myUsername} />
                 </Tab.Pane>
               </Tab.Content>
               <Button className={`${styles.buttom} align-items-end w-100`} onClick={()=>setModalOpen(true)}>
