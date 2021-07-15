@@ -24,15 +24,24 @@ export function ChatroomsProvider({ myId, myUsername, children }) {
   const addMessageToChatroom = useCallback(({ selectedChatroom, sender, msgText }) => {
     setChatrooms(prevChatrooms => {
       const newMessage = { sender, msgText }
+      const newUser = !selectedChatroom.roomUsers.find(user => user.id === sender.id)
 
       const updatedChatrooms = prevChatrooms.map(chatroom => {
         const chatroomUserIds = chatroom.roomUsers
         const selectedChatroomUserIds = selectedChatroom.roomUsers.map(user => user.id)
 
         if (arrayEquality(chatroomUserIds,selectedChatroomUserIds)) {
-          return {
-            ...chatroom,
-            messages: [...chatroom.messages, newMessage]
+          if (newUser) {
+            return {
+              ...chatroom,
+              roomUsers: [...selectedChatroomUserIds, sender.id],
+              messages: [...chatroom.messages, newMessage]
+            }
+          } else {
+            return {
+              ...chatroom,
+              messages: [...chatroom.messages, newMessage]
+            }
           }
         } else {
           return chatroom
@@ -49,7 +58,7 @@ export function ChatroomsProvider({ myId, myUsername, children }) {
   }, [socket, addMessageToChatroom])
 
   function sendMessage(selectedChatroom, msgText) {
-    const sender = selectedChatroom.roomUsers.find(user => user.id === myId)
+    const sender = selectedChatroom.roomUsers.find(user => user.id === myId) || users.find(user => user.id === myId)
     const roomUsers = selectedChatroom.roomUsers
 
     socket.emit('send-message', { selectedChatroom, sender, msgText, roomUsers })

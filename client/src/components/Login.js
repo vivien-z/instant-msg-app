@@ -28,7 +28,6 @@ export default function Login( { value, onIdSubmit, onChange }) {
     for (let i = 0; i < users.length; i++) {
       if (users[i].id !== id) {
         newId = true
-        console.log('ck')
       }
     }
     if (newId) {
