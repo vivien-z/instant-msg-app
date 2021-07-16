@@ -1,9 +1,11 @@
-import React from 'react'
-import { ListGroup } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { ListGroup, Modal } from 'react-bootstrap'
 import { useChatrooms } from '../contexts/ChatroomsProvider';
+import JoinChatroomModal from './JoinChatroomModal'
 
 export default function Chatrooms({ myId, myUsername }) {
   const { chatrooms, selectChatroomIndex } = useChatrooms()
+  const [modalOpen, setModalOpen] = useState(false)
 
   function otherRoomUsers(chatroom) {
     return chatroom.roomUsers.filter(user => user.username !== myUsername).map(user => user.username)
@@ -11,6 +13,25 @@ export default function Chatrooms({ myId, myUsername }) {
 
   function isMyChatroom(chatroom) {
     return chatroom.roomUsers.length !== otherRoomUsers(chatroom).length
+  }
+
+  function listChatroomUsers(chatroom) {
+    if (isMyChatroom(chatroom)) {
+      return otherRoomUsers(chatroom).join(', ') + ', me'
+    } else {
+      return otherRoomUsers(chatroom).join(', ')
+    }
+  }
+
+  function openModal(chatroom) {
+      console.log('modalOpen')
+    if (!isMyChatroom(chatroom)) {
+      setModalOpen(true)
+    }
+  }
+
+  function closeModal() {
+    setModalOpen(false)
   }
 
   return (
@@ -21,16 +42,21 @@ export default function Chatrooms({ myId, myUsername }) {
           <ListGroup.Item
             key={i}
             action // bootstrap function make it selectable
-            onClick={() => selectChatroomIndex(i)}
+            onClick={() => selectChatroomIndex(i) && openModal(chatroom)}
             active={chatroom.selected}
           >
-            {isMyChatroom(chatroom) ? (otherRoomUsers(chatroom).join(', ') + ', me') : otherRoomUsers(chatroom).join(', ')}
+            {listChatroomUsers(chatroom)}
+
 
           </ListGroup.Item>
         ))}
 
       </ListGroup>
+      <Modal show={modalOpen} onHide={closeModal}>
 
+          <JoinChatroomModal closeModal={closeModal} myId={myId} myUsername={myUsername} chatroom={chatroom}/>
+
+      </Modal>
     </>
   )
 }

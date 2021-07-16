@@ -21,6 +21,25 @@ export function ChatroomsProvider({ myId, myUsername, children }) {
     })
   }
 
+  function addUserToChatroom(newUserId, selectedChatroom) {
+    setChatrooms(prevChatrooms => {
+      const updatedChatrooms = chatrooms.map(chatroom => {
+        const chatroomUserIds = chatroom.roomUsers
+        const selectedChatroomUserIds = selectedChatroom.roomUsers.map(user => user.id)
+        if (arrayEquality(chatroomUserIds,selectedChatroomUserIds)) {
+          return {
+            ...chatroom,
+            roomUsers: [...selectedChatroomUserIds, newUserId],
+          }
+        } else {
+          return chatroom
+        }
+      })
+      return updatedChatrooms
+    })
+  }
+
+
   const addMessageToChatroom = useCallback(({ selectedChatroom, sender, msgText }) => {
     setChatrooms(prevChatrooms => {
       const newMessage = { sender, msgText }
@@ -94,7 +113,8 @@ export function ChatroomsProvider({ myId, myUsername, children }) {
     selectedChatroom: formattedChatrooms[selectedChatroomIndex],
     selectChatroomIndex: setSelectedChatroomIndex,
     createChatroom,
-    sendMessage
+    sendMessage,
+    addUserToChatroom
   }
 
   return (
