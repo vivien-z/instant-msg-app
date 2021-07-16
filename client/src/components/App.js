@@ -6,7 +6,7 @@ import { UsersProvider } from '../contexts/UsersProvider';
 import { ChatroomsProvider } from '../contexts/ChatroomsProvider';
 import { SocketProvider } from '../contexts/SocketProvider';
 
-function App() {
+export default function App() {
   const [myUsername, setMyUsername] = useLocalStorage('my-username')
   const [myId, setMyId] = useLocalStorage('my-id')
 
@@ -32,5 +32,3 @@ function App() {
     </SocketProvider>
   )
 }
-
-export default App;

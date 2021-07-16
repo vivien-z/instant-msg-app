@@ -1,7 +1,6 @@
 import React from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { useChatrooms } from '../contexts/ChatroomsProvider';
-// import JoinChatroomModal from './JoinChatroomModal'
 
 export default function Chatrooms({ myId, myUsername }) {
   const { chatrooms, selectChatroomIndex } = useChatrooms()

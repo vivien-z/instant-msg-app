@@ -39,7 +39,6 @@ export function ChatroomsProvider({ myId, myUsername, children }) {
     })
   }
 
-
   const addMessageToChatroom = useCallback(({ selectedChatroom, sender, msgText }) => {
     setChatrooms(prevChatrooms => {
       const newMessage = { sender, msgText }

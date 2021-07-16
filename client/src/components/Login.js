@@ -24,13 +24,14 @@ export default function Login( { value, onIdSubmit, onChange }) {
     onChange(username)
     onIdSubmit(id)
 
+    console.log(users.typeOf)
     let newId = false
     for (let i = 0; i < users.length; i++) {
       if (users[i].id !== id) {
         newId = true
       }
     }
-    if (newId) {
+    if (users.length === 0 || newId) {
       createUser(id, username)
     }
   }
