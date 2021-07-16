@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Modal, Form, Button } from 'react-bootstrap'
-import { useUsers } from '../contexts/UsersProvider';
+// import { useUsers } from '../contexts/UsersProvider';
 import { useChatrooms } from '../contexts/ChatroomsProvider';
 
 export default function JoinChatroomModal({ closeModal, myId, myUsername, chatroom }) {
@@ -11,7 +11,6 @@ export default function JoinChatroomModal({ closeModal, myId, myUsername, chatro
     e.preventDefault()
     if (confirm) {
       addUserToChatroom(myId, chatroom)
-      console.log('work')
     }
     closeModal()
   }

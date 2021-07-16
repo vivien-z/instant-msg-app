@@ -18,7 +18,6 @@ function App() {
     <Login
       value={myUsername}
       onChange={(value) => setMyUsername(value)}
-      // onUsernameSubmit={setUsername}
       onIdSubmit={setMyId}
     />
   )
