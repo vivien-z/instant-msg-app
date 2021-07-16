@@ -37,26 +37,31 @@ export default function Login( { value, onIdSubmit, onChange }) {
 
   return (
     <Container className="justify-content-center align-items-center d-flex" style={{ height: "100vh"}}>
-      <Form onSubmit={handleSubmit} className="w-50">
-        <Form.Group className="mb-2">
-          <Form.Label className="mb-2">User Id</Form.Label>
-          <Form.Control
-            type="text"
-            name="user-id"
-            ref={idRef}
-            required
-          />
-          <Form.Label className="mb-2">Enter Your Username</Form.Label>
-          <Form.Control
-            type="text"
-            ref={usernameRef}
-            value={value}
-            onChange={(e) => e.preventDefault() || onChange(e.target.value)}
-            required>
-          </Form.Control>
-        </Form.Group>
-        <Button type="submit" className="me-2">Login</Button>
-        <Button variant="secondary" onClick={generateRandomUsername}>New Username</Button>
+      <Form onSubmit={handleSubmit} className="w-50 border rounded">
+        <div className="rounded-top bg-purple py-3 text-white text-center fs-4">
+          Chatroom
+        </div>
+        <div className="p-4">
+          <Form.Group className="mb-2">
+            <Form.Label className="mb-2">User Id</Form.Label>
+            <Form.Control
+              type="text"
+              name="user-id"
+              ref={idRef}
+              required
+            />
+            <Form.Label className="mb-2">Enter Your Username</Form.Label>
+            <Form.Control
+              type="text"
+              ref={usernameRef}
+              value={value}
+              onChange={(e) => e.preventDefault() || onChange(e.target.value)}
+              required>
+            </Form.Control>
+          </Form.Group>
+          <Button type="submit" className="me-2">Login</Button>
+          <Button variant="secondary" onClick={generateRandomUsername}>New Username</Button>
+        </div>
       </Form>
     </Container>
   )
