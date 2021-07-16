@@ -69,6 +69,6 @@ export default function OpenChatWindow({ myId, myUsername }) {
   )
 }
 
-      // <div className="bg-purple py-4 px-3 border-bottom">
+      // <div className="bg-blue py-4 px-3 border-bottom">
       //   Message: <span className="text-muted">{otherRoomUsers.join(', ')}</span>
       // </div>

@@ -29,7 +29,7 @@ export default function Sidebar({ myId, myUsername }) {
 
       <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
         <Row className="h-100">
-          <Col sm={3} className={`${styles.navTab} pt-4 bg-purple h-100`}>
+          <Col sm={3} className={`${styles.navTab} pt-4 bg-blue h-100`}>
             <span className={`${styles.avatar} mb-3`}>{myUsername[0].toUpperCase()}</span>
             <hr />
             <Nav variant="pills" className={`justify-content-center align-items-start`}>
