@@ -24,7 +24,6 @@ export default function Chatrooms({ myId, myUsername }) {
   }
 
   function openModal(chatroom) {
-      console.log('modalOpen')
     if (!isMyChatroom(chatroom)) {
       setModalOpen(true)
     }
@@ -39,24 +38,22 @@ export default function Chatrooms({ myId, myUsername }) {
       <ListGroup variant="flush">
 
         {chatrooms.map((chatroom, i) => (
-          <ListGroup.Item
-            key={i}
-            action // bootstrap function make it selectable
-            onClick={() => selectChatroomIndex(i) && openModal(chatroom)}
-            active={chatroom.selected}
-          >
-            {listChatroomUsers(chatroom)}
 
+            <ListGroup.Item
+              key={i}
+              action // bootstrap function make it selectable
+              onClick={() => {selectChatroomIndex(i); openModal(chatroom)}}
+              active={chatroom.selected}
+            >
+              {listChatroomUsers(chatroom)}
+              <Modal show={modalOpen} onHide={closeModal}>
+                  <JoinChatroomModal closeModal={closeModal} myId={myId} myUsername={myUsername} chatroom={chatroom}/>
+              </Modal>
+            </ListGroup.Item>
 
-          </ListGroup.Item>
         ))}
 
       </ListGroup>
-      <Modal show={modalOpen} onHide={closeModal}>
-
-          <JoinChatroomModal closeModal={closeModal} myId={myId} myUsername={myUsername} chatroom={chatroom}/>
-
-      </Modal>
     </>
   )
 }
