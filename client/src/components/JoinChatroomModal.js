@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Modal, Form, Button } from 'react-bootstrap'
 import { useChatrooms } from '../contexts/ChatroomsProvider';
 

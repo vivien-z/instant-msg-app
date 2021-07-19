@@ -1,4 +1,3 @@
-import React from 'react'
 import Sidebar from './Sidebar'
 import OpenChatWindow from './OpenChatWindow'
 import { useChatrooms } from '../contexts/ChatroomsProvider';
