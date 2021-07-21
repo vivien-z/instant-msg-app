@@ -1,30 +1,70 @@
+const express = require('express');
+const { Server } = require("socket.io")
+const http = require('http')
+const cors = require('cors')
 
-const io = require('socket.io')(5000, {
+const PORT = process.env.PORT || 8080
+const router = require('./router')
+// const path = require('path') //(router)
 
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST", "PUT"],
-    credentials: true
-  }
-})
+const app = express();
+const server = http.createServer(app)
+const io = new Server(server)
+// cors setting
+// const io = new Server(server, {
+//     cors: {
+//     origin: "http://localhost:3000",
+//     methods: ["GET", "POST", "PUT"],
+//     credentials: true
+//   }
+// });
 
-io.on('connection', socket => {
-  // const id = socket.handshake.query.myId
-  // socket.join(id)
+
+// app.use(express.static(path.join(__dirname, '../../build'))) //(router)
+app.use(router)
+app.use(cors())
+
+//(router)
+// app.get('/', (req, res, next) => {
+//   res.sendFile(__dirname + '/index.html')
+// });
+
+
+io.on('connection', (socket) => {
+  console.log('We have a new connection.')
 
   socket.on('send-message', ({ selectedChatroom, sender, msgText, roomUsers }) => {
+    socket.broadcast.emit('receive-message', {selectedChatroom, sender, msgText})
+  })
 
-    socket.broadcast.emit('receive-message', {
-      selectedChatroom, sender, msgText
-    })
-
-    // roomUsers.forEach(roomUser => {
-    //   const recipients = roomUsers.filter(user => user !== roomUser)
-    //   roomUsers = recipients
-    //   roomUsers.push(id)
-    //   socket.broadcast.to(roomUser).emit('receive-message', {
-    //     selectedChatroom: selectedChatroom, sender: sender, msgText
-    //   })
-    // })
+  socket.on('disconnect', () => {
+    console.log('A user had left.')
   })
 })
+
+server.listen(PORT, () => console.log(`Server is listening to port ${PORT}`))
+
+
+// const io = require('socket.io')(5000, {
+
+//   cors: {
+//     origin: "http://localhost:3000",
+//     methods: ["GET", "POST", "PUT"],
+//     credentials: true
+//   }
+// })
+
+// io.on('connection', socket => {
+//   // const id = socket.handshake.query.myId
+//   // socket.join(id)
+
+//   socket.on('send-message', ({ selectedChatroom, sender, msgText, roomUsers }) => {
+//     socket.broadcast.emit('receive-message', {selectedChatroom, sender, msgText})
+//   })
+
+//   // socket.on('create-new-chatroom', ({ roomUserIds }) => {
+//   //   socket.broadcast.emit('match-new-chatroom', { roomUserIds })
+//   // })
+
+// })
+
