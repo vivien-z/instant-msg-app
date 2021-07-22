@@ -19,7 +19,7 @@ const path = require('path') //(router)
 // cors setting
 const io = new Server(server, {
   cors: {
-    origin: "https://instant-msg-us.herokuapp.com/" || "http://localhost:3000" ,
+    origin: "https://60f9beea5eca372f0d813e4e--instant-msg-page.netlify.app/" || "http://localhost:3000" ,
     methods: ["GET", "POST", "PUT"],
     credentials: true
   }
