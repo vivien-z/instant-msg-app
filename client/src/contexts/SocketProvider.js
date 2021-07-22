@@ -9,10 +9,10 @@ export function useSocket() {
 
 export function SocketProvider({ myId, children }) {
   const [socket, setSocket] = useState(null)
-
+  const ENDPOINT = 'https://instant-msg-us.herokuapp.com/' || 'http://localhost:8080'
   useEffect(() => {
     const newSocket = io(
-      'http://localhost:8080',
+      ENDPOINT,
       {
         // query: {myId},
         withCredentials: true
@@ -23,7 +23,7 @@ export function SocketProvider({ myId, children }) {
 
     console.log('socket-client 8080')
     return () => newSocket.close()
-  }, [myId])
+  }, [myId, ENDPOINT])
 
   return (
     <SocketContext.Provider value={socket}>
