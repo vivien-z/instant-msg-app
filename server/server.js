@@ -1,33 +1,40 @@
 const express = require('express');
-const { Server } = require("socket.io")
+const app = express();
 const http = require('http')
+const server = http.createServer(app)
+const { Server }= require("socket.io")
+// const io = new Server(server, {
+//   allowRequest: (req, callback) => {
+//     const noOriginHeader = req.headers.origin === undefined;
+//     callback(null, noOriginHeader);
+//   }
+// })
+
 const cors = require('cors')
 
 const PORT = process.env.PORT || 8080
-const router = require('./router')
-// const path = require('path') //(router)
+// const router = require('./router')
+const path = require('path') //(router)
 
-const app = express();
-const server = http.createServer(app)
-const io = new Server(server)
 // cors setting
-// const io = new Server(server, {
-//     cors: {
-//     origin: "http://localhost:3000",
-//     methods: ["GET", "POST", "PUT"],
-//     credentials: true
-//   }
-// });
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000" || "https://instant-msg-us.herokuapp.com/",
+    methods: ["GET", "POST", "PUT"],
+    credentials: true
+  }
+});
 
 
-// app.use(express.static(path.join(__dirname, '../../build'))) //(router)
-app.use(router)
+app.use(express.static(path.join(__dirname, '../../build'))) //(router)
+// app.use(router)
 app.use(cors())
 
 //(router)
-// app.get('/', (req, res, next) => {
-//   res.sendFile(__dirname + '/index.html')
-// });
+app.get('/', (req, res, next) => {
+  res.sendFile(__dirname + '/index.html')
+  res.send('Server is up and running')
+});
 
 
 io.on('connection', (socket) => {

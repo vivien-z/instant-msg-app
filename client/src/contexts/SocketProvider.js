@@ -12,13 +12,16 @@ export function SocketProvider({ myId, children }) {
 
   useEffect(() => {
     const newSocket = io(
-      'http://localhost:5000',
+      'http://localhost:8080',
       {
         // query: {myId},
         withCredentials: true
       }
     )
+    // newSocket.on('hello', console.log())
     setSocket(newSocket)
+
+    console.log('socket-client 8080')
     return () => newSocket.close()
   }, [myId])
 
