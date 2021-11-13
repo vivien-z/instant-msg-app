@@ -3,25 +3,20 @@ import { Container, Form, Button } from 'react-bootstrap'
 import { v4 as uuidV4 } from 'uuid'
 import { useUsers } from '../contexts/UsersProvider' //
 
-export default function Login( { value, onIdSubmit, onChange }) {
+export default function Login( { value, onChange, onIdSubmit }) {
   const usernameRef = useRef()
-  const idRef = useRef()
   const { users, createUser } = useUsers() //
 
   function generateRandomUsername() {
-    const rug = require('random-username-generator');
-    onChange(rug.generate())
+    const rug = require('random-username-generator').generate();
+    onChange(rug.slice(-10).replace(/-/g, ''))
   }
 
   function handleSubmit(e) {
     e.preventDefault()
 
     const username = usernameRef.current.value
-    // const id = idRef.current.value || uuidV4()
-    const id = users.find(user => user.username === username).id || uuidV4()
-
-    onChange(username)
-    onIdSubmit(id)
+    let id
 
     let newUser = false
     for (let i = 0; i < users.length; i++) {
@@ -30,17 +25,15 @@ export default function Login( { value, onIdSubmit, onChange }) {
       }
     }
     if (users.length === 0 || newUser) {
+      id = uuidV4().slice(0, 7)
       createUser(id, username)
     }
-    // let newId = false
-    // for (let i = 0; i < users.length; i++) {
-    //   if (users[i].id !== id) {
-    //     newId = true
-    //   }
-    // }
-    // if (users.length === 0 || newId) {
-    //   createUser(id, username)
-    // }
+    if (!newUser) {
+      id = users.find(user => user.username === username).id
+    }
+
+    onChange(username)
+    onIdSubmit(id)
   }
 
   return (
@@ -68,11 +61,3 @@ export default function Login( { value, onIdSubmit, onChange }) {
     </Container>
   )
 }
-            // <Form.Label className="mb-2">User Id</Form.Label>
-            // <Form.Control
-            //   type="text"
-            //   name="user-id"
-            //   ref={idRef}
-            //   required
-            // />
-

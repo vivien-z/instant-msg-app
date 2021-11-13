@@ -11,6 +11,7 @@ const path = require('path') //(router)
 const io = new Server(server, {
   cors: {
     origin: ["https://60f9beea5eca372f0d813e4e--instant-msg-page.netlify.app", "http://localhost:3000"],
+    // origin: *,
     methods: ["GET", "POST", "PUT"],
     credentials: true
   }
