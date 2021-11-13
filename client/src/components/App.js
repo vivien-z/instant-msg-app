@@ -17,7 +17,7 @@ export default function App() {
     <Login
       value={myUsername}
       onChange={(value) => setMyUsername(value)}
-      idValue={myId}
+      // idValue={myId}
       onIdSubmit={(idValue) => setMyId(idValue)}
     />
   )

@@ -1,39 +1,52 @@
-import { useRef } from 'react'
+import { useState, useRef } from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
 import { v4 as uuidV4 } from 'uuid'
+// import useLocalStorage from '../hooks/useLocalStorage'
 import { useUsers } from '../contexts/UsersProvider' //
 
 export default function Login( { value, onChange, onIdSubmit }) {
+  const [id, setId] = useState('')
+  const [newUser, setNewUser] = useState(false)
   const usernameRef = useRef()
   const { users, createUser } = useUsers() //
 
+  function isNewUser(username) {
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].username !== username) {
+        setId(uuidV4().slice(0, 7))
+        setNewUser(true)
+      } else {
+        setId(users.find(user => user.username === username).id)
+        setNewUser(false)
+      }
+    }
+  }
+
   function generateRandomUsername() {
-    const rug = require('random-username-generator').generate();
-    onChange(rug.slice(-10).replace(/-/g, ''))
+    const rugName = require('random-username-generator').generate().slice(-10).replace(/-/g, '');
+    isNewUser(rugName)
+    onChange(rugName)
+    onIdSubmit(id)
   }
 
   function handleSubmit(e) {
     e.preventDefault()
 
     const username = usernameRef.current.value
-    let id
+    // isNewUser(username)
+    // let id
 
-    let newUser = false
-    for (let i = 0; i < users.length; i++) {
-      if (users[i].username !== username) {
-        newUser = true
-      }
-    }
     if (users.length === 0 || newUser) {
-      id = uuidV4().slice(0, 7)
+      // setId(uuidV4().slice(0, 7))
       createUser(id, username)
     }
-    if (!newUser) {
-      id = users.find(user => user.username === username).id
-    }
+    // if (!newUser) {
+    //   setId(users.find(user => user.username === username).id)
+    // }
+    // onIdSubmit(id)
 
-    onChange(username)
-    onIdSubmit(id)
+    // onChange(username)
+    // onIdSubmit(id)
   }
 
   return (
