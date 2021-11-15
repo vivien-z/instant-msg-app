@@ -1,39 +1,43 @@
-import { useRef } from 'react'
+import { useState, useRef } from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
 import { v4 as uuidV4 } from 'uuid'
-import { useUsers } from '../contexts/UsersProvider' //
+import { useUsers } from '../contexts/UsersProvider'
 
-export default function Login( { value, onChange, onIdSubmit }) {
+export default function Login( { value, onChange, idValue, onIdSubmit, isLoggedIn, setLogin }) {
+  const { users, createUser } = useUsers()
+  const [newUser, setNewUser] = useState(false)
   const usernameRef = useRef()
-  const { users, createUser } = useUsers() //
+
+  function isNewUser(username) {
+    for (let i = 0; i < users.length; i++) {
+      (users[i].username !== username) ? setNewUser(true) : setNewUser(false)
+    }
+  }
 
   function generateRandomUsername() {
-    const rug = require('random-username-generator').generate();
-    onChange(rug.slice(-10).replace(/-/g, ''))
+    const rugName = require('random-username-generator').generate().slice(-10).replace(/-/g, '')
+    onChange(rugName)
   }
 
   function handleSubmit(e) {
     e.preventDefault()
 
     const username = usernameRef.current.value
+    isNewUser(username)
     let id
-
-    let newUser = false
-    for (let i = 0; i < users.length; i++) {
-      if (users[i].username !== username) {
-        newUser = true
-      }
-    }
     if (users.length === 0 || newUser) {
       id = uuidV4().slice(0, 7)
+      onIdSubmit(id)
       createUser(id, username)
+      console.log('new user')
     }
-    if (!newUser) {
-      id = users.find(user => user.username === username).id
+    if (!id && !newUser) {
+      console.log('old user')
+      onChange(username)
+      console.log(users)
+      onIdSubmit(users.find(user => user.username === username).id)
     }
-
-    onChange(username)
-    onIdSubmit(id)
+    setLogin(true)
   }
 
   return (
@@ -50,7 +54,7 @@ export default function Login( { value, onChange, onIdSubmit }) {
               type="text"
               ref={usernameRef}
               value={value}
-              onChange={(e) => e.preventDefault() || onChange(e.target.value)}
+              onClick={(e) => e.preventDefault() || onChange(e.target.value)}
               required>
             </Form.Control>
           </Form.Group>
