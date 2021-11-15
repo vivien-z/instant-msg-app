@@ -1,52 +1,43 @@
 import { useState, useRef } from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
 import { v4 as uuidV4 } from 'uuid'
-// import useLocalStorage from '../hooks/useLocalStorage'
-import { useUsers } from '../contexts/UsersProvider' //
+import { useUsers } from '../contexts/UsersProvider'
 
-export default function Login( { value, onChange, onIdSubmit }) {
-  const [id, setId] = useState('')
+export default function Login( { value, onChange, idValue, onIdSubmit, isLoggedIn, setLogin }) {
+  const { users, createUser } = useUsers()
   const [newUser, setNewUser] = useState(false)
   const usernameRef = useRef()
-  const { users, createUser } = useUsers() //
 
   function isNewUser(username) {
     for (let i = 0; i < users.length; i++) {
-      if (users[i].username !== username) {
-        setId(uuidV4().slice(0, 7))
-        setNewUser(true)
-      } else {
-        setId(users.find(user => user.username === username).id)
-        setNewUser(false)
-      }
+      (users[i].username !== username) ? setNewUser(true) : setNewUser(false)
     }
   }
 
   function generateRandomUsername() {
-    const rugName = require('random-username-generator').generate().slice(-10).replace(/-/g, '');
-    isNewUser(rugName)
+    const rugName = require('random-username-generator').generate().slice(-10).replace(/-/g, '')
     onChange(rugName)
-    onIdSubmit(id)
   }
 
   function handleSubmit(e) {
     e.preventDefault()
 
     const username = usernameRef.current.value
-    // isNewUser(username)
-    // let id
-
+    isNewUser(username)
+    let id
     if (users.length === 0 || newUser) {
-      // setId(uuidV4().slice(0, 7))
+      id = uuidV4().slice(0, 7)
+      onIdSubmit(id)
       createUser(id, username)
+      console.log('new user')
     }
-    // if (!newUser) {
-    //   setId(users.find(user => user.username === username).id)
-    // }
-    // onIdSubmit(id)
-
-    // onChange(username)
-    // onIdSubmit(id)
+    if (!id && !newUser) {
+      console.log('old user')
+      onChange(username)
+      console.log(users)
+      onIdSubmit(users.find(user => user.username === username).id)
+    }
+    setLogin(true)
   }
 
   return (
@@ -63,7 +54,7 @@ export default function Login( { value, onChange, onIdSubmit }) {
               type="text"
               ref={usernameRef}
               value={value}
-              onChange={(e) => e.preventDefault() || onChange(e.target.value)}
+              onClick={(e) => e.preventDefault() || onChange(e.target.value)}
               required>
             </Form.Control>
           </Form.Group>

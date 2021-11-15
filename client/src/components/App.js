@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Login from './Login'
 import useLocalStorage from '../hooks/useLocalStorage'
 import MainInterface from './MainInterface'
@@ -6,6 +7,7 @@ import { ChatroomsProvider } from '../contexts/ChatroomsProvider';
 import { SocketProvider } from '../contexts/SocketProvider';
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [myUsername, setMyUsername] = useLocalStorage('my-username')
   const [myId, setMyId] = useLocalStorage('my-id')
 
@@ -17,8 +19,10 @@ export default function App() {
     <Login
       value={myUsername}
       onChange={(value) => setMyUsername(value)}
-      // idValue={myId}
-      onIdSubmit={(idValue) => setMyId(idValue)}
+      idValue={myId}
+      onIdSubmit={setMyId}
+      isLoggedIn={isLoggedIn}
+      setLogin={setIsLoggedIn}
     />
   )
 
@@ -26,7 +30,7 @@ export default function App() {
     <SocketProvider myId={myId}>
       <UsersProvider>
         <ChatroomsProvider myId={myId} myUsername={myUsername}>
-          {myId ? mainInterfacePage : loginPage}
+          {isLoggedIn ? mainInterfacePage : loginPage}
         </ChatroomsProvider>
       </UsersProvider>
     </SocketProvider>
