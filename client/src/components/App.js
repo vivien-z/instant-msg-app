@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import Login from './Login'
-import useLocalStorage from '../hooks/useLocalStorage'
-import MainInterface from './MainInterface'
 import { UsersProvider } from '../contexts/UsersProvider';
 import { ChatroomsProvider } from '../contexts/ChatroomsProvider';
 import { SocketProvider } from '../contexts/SocketProvider';
+import Login from './Login'
+import useLocalStorage from '../hooks/useLocalStorage'
+import MainInterface from './MainInterface'
+import Header from './Header'
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -29,6 +30,7 @@ export default function App() {
   return (
     <SocketProvider myId={myId}>
       <UsersProvider>
+        <Header myId={myId} myUsername={myUsername}/>
         <ChatroomsProvider myId={myId} myUsername={myUsername}>
           {isLoggedIn ? mainInterfacePage : loginPage}
         </ChatroomsProvider>
