@@ -30,7 +30,12 @@ export default function App() {
   return (
     <SocketProvider myId={myId}>
       <UsersProvider>
-        <Header myId={myId} myUsername={myUsername}/>
+        <Header
+          myId={myId}
+          myUsername={myUsername}
+          isLoggedIn={isLoggedIn}
+          setLogin={setIsLoggedIn}
+        />
         <ChatroomsProvider myId={myId} myUsername={myUsername}>
           {isLoggedIn ? mainInterfacePage : loginPage}
         </ChatroomsProvider>
