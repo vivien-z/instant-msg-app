@@ -63,7 +63,7 @@ export default function Sidebar({ myId, myUsername }) {
       <Modal show={modalOpen} onHide={closeModal}>
         {activeKey === "Chats" ?
           <NewChatroomModal closeModal={closeModal} myId={myId} myUsername={myUsername}/> :
-          <NewContactModal closeModal={closeModal}/>
+          <NewContactModal closeModal={closeModal} myId={myId} myUsername={myUsername}/>
         }
       </Modal>
 

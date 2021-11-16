@@ -2,11 +2,14 @@ import { useState, useRef } from 'react'
 import { Modal, Form, Row, Col, Button } from 'react-bootstrap'
 import { useUsers } from '../contexts/UsersProvider'
 
-export default function NewContactModal({ closeModal }) {
+export default function NewContactModal({ closeModal, myId, myUsername }) {
   const [sId, setSId] = useState()
   const idRef = useRef()
   const usernameRef = useRef()
-  const { users, createUser } = useUsers()
+  const { users, addContact, getNonContactUsers } = useUsers()
+
+  const currentUser = users.find(user => user.id === myId)
+  const nonContacts = getNonContactUsers(currentUser)
 
   function selectUser(sUsername) {
     const selectedUser = users.find(user => user.username === sUsername)
@@ -17,9 +20,13 @@ export default function NewContactModal({ closeModal }) {
 
   function handleSubmit(e) {
     e.preventDefault()
-
-    createUser(idRef.current.value, usernameRef.current.value)
-    closeModal()
+    const user = users.find(user => user.username === myUsername)
+    if (sId !== undefined) {
+      addContact({user: user, newContactId: sId})
+      closeModal()
+    } else {
+      alert("Please try again!")
+    }
   }
 
   return (
@@ -44,7 +51,7 @@ export default function NewContactModal({ closeModal }) {
                     onChange={(e) => e.preventDefault() || selectUser(e.target.value)}
                     required
                   >
-                    {users.map((user, i) => (
+                    {nonContacts.map((user, i) => (
                       <option readOnly key={i} value={user.username} >{user.username}</option>
                     ))}
                   </Form.Control>
@@ -61,8 +68,3 @@ export default function NewContactModal({ closeModal }) {
     </>
   )
 }
-
-          // <Form.Group>
-          //   <Form.Label>Username:</Form.Label>
-          //   <Form.Control type="text" ref={usernameRef} required></Form.Control>
-          // </Form.Group>
