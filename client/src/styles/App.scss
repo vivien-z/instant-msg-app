@@ -1,3 +1,7 @@
+html body {
+  height: 100%;
+}
+
 /*== reset bootstrap color ==*/
 $primary: rgb(50, 67, 118);
 @import '~bootstrap/scss/bootstrap';
@@ -5,6 +9,32 @@ $primary: rgb(50, 67, 118);
 /*==== my colors ====*/
 $mint: rgb(190, 233, 232);
 $gray-l: rgb(247, 247, 255);
+
+/*==== background colors ====*/
+.bg-blue {
+  background-color:  $primary !important;
+}
+.bg-mint {
+  background-color: $mint;
+}
+.bg-gray-l {
+  background-color: $gray-l;
+}
+.bg-white {
+  background-color: white;
+}
+
+/*==== header ====*/
+.header {
+  height: 10vh;
+  min-height: 60px;
+  background-color: $primary !important;
+  color: $mint;
+  font-weight: bold;
+  p {
+    color: rgb(244, 241, 187);
+  }
+}
 
 /*==== bootstrap navTab ====*/
 .row {
@@ -55,17 +85,4 @@ hr {
   color: $primary;
 }
 
-/*==== background colors ====*/
-.bg-blue {
-  background-color:  $primary !important;
-}
-.bg-mint {
-  background-color: $mint;
-}
-.bg-gray-l {
-  background-color: $gray-l;
-}
-.bg-white {
-  background-color: white;
-}
 
