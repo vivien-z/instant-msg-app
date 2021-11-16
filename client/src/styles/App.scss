@@ -1,3 +1,7 @@
+html body {
+  height: 100%;
+}
+
 /*== reset bootstrap color ==*/
 $primary: rgb(50, 67, 118);
 @import '~bootstrap/scss/bootstrap';
@@ -23,6 +27,7 @@ $gray-l: rgb(247, 247, 255);
 /*==== bootstrap header ====*/
 .header {
   height: 10vh;
+  min-height: 60px;
   background-color: $primary !important;
   color: $mint;
   font-weight: bold;

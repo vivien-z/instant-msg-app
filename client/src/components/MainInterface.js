@@ -6,7 +6,7 @@ export default function MainInterface({ myId, myUsername }) {
   const { selectedChatroom } = useChatrooms()
 
   return (
-    <div className="d-flex" style={{ height: '100vh'}}>
+    <div className="d-flex" style={{ height: '90vh' }}>
       <Sidebar myId={myId} myUsername={myUsername} />
       { selectedChatroom && <OpenChatWindow myId={myId} myUsername={myUsername}/> }
     </div>

@@ -36,7 +36,7 @@ export default function Login( { value, onChange, idValue, onIdSubmit, isLoggedI
   }
 
   return (
-    <Container className="justify-content-center align-items-center d-flex" style={{ height: "100vh"}}>
+    <Container className="justify-content-center align-items-center d-flex" style={{ height: "90vh"}}>
 
      <Form onSubmit={handleSubmit} className="w-50 border rounded">
         <div className="rounded-top bg-blue py-3 text-white text-center fs-4">
