@@ -35,6 +35,8 @@ export default function App() {
           myUsername={myUsername}
           isLoggedIn={isLoggedIn}
           setLogin={setIsLoggedIn}
+          setMyUsername={setMyUsername}
+          setMyId={setMyId}
         />
         <ChatroomsProvider myId={myId} myUsername={myUsername}>
           {isLoggedIn ? mainInterfacePage : loginPage}
