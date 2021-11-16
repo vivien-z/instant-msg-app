@@ -1,15 +1,16 @@
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
 import { v4 as uuidV4 } from 'uuid'
 import { useUsers } from '../contexts/UsersProvider'
 
 export default function Login( { value, onChange, idValue, onIdSubmit, isLoggedIn, setLogin }) {
   const { users, createUser } = useUsers()
-  const [newUser, setNewUser] = useState(true)
   const usernameRef = useRef()
+  let newUser
 
   function isNewUser(username) {
-    (users.find(user => user.username === username) === undefined) ? setNewUser(true) : setNewUser(false)
+    const userMatch = users.find(user => user.username === username)
+    userMatch === undefined ? newUser = true : newUser = false
   }
 
   function generateRandomUsername() {
