@@ -4,12 +4,12 @@ import { useUsers } from '../contexts/UsersProvider';
 import { useChatrooms } from '../contexts/ChatroomsProvider';
 
 export default function NewChatroomModal({ closeModal, myId, myUsername }) {
-  const { users } = useUsers()
-  const contacts = users.filter(user => {
-    return user.username !== myUsername
-  })
+  const { users, getContactUsers } = useUsers()
   const { createChatroom } = useChatrooms()
   const [selectedUserIds, setSelectedUserIds] = useState([])
+
+  const currentUser = users.find(user => user.id === myId)
+  const contacts = getContactUsers(currentUser)
 
   function handleCheckboxChange(checkedId) {
     setSelectedUserIds(prevSelectedUserIds => {

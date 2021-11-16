@@ -6,15 +6,10 @@ export default function NewContactModal({ closeModal, myId, myUsername }) {
   const [sId, setSId] = useState()
   const idRef = useRef()
   const usernameRef = useRef()
-  const { users, addContact } = useUsers()
+  const { users, addContact, getNonContactUsers } = useUsers()
 
   const currentUser = users.find(user => user.id === myId)
-  const myContacts = currentUser.contacts.map(contact => (
-    users.find(user => user.id === contact.id)
-  ))
-  const nonContacts = users.filter(user => (
-    user.username !== myUsername && !myContacts.includes(user)
-  ))
+  const nonContacts = getNonContactUsers(currentUser)
 
   function selectUser(sUsername) {
     const selectedUser = users.find(user => user.username === sUsername)

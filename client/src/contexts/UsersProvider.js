@@ -10,6 +10,21 @@ export function useUsers() {
 export function UsersProvider({ children }) {
   const [users, setUsers] = useLocalStorage('users', [])
 
+  function getContactUsers(currentUser) {
+    return currentUser.contacts.map(contact => (
+      users.find(user => user.id === contact.id)
+    ))
+  }
+
+  function getNonContactUsers(currentUser) {
+    const myContacts = getContactUsers(currentUser)
+    const nonContacts = users.filter(user => (
+      user.username !== currentUser.username && !myContacts.includes(user)
+    ))
+    return nonContacts
+  }
+
+
   function createUser(id, username) {
     setUsers(prevUsers => {
       return [...prevUsers, {id, username, contacts: []}]
@@ -28,8 +43,16 @@ export function UsersProvider({ children }) {
     })
   }
 
+  const outputValue = {
+    users,
+    createUser,
+    addContact,
+    getNonContactUsers,
+    getContactUsers
+  }
+
   return (
-    <UsersContext.Provider value={ {users, createUser, addContact} }>
+    <UsersContext.Provider value={ outputValue }>
       { children }
     </UsersContext.Provider>
   )
