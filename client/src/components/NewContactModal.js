@@ -8,6 +8,22 @@ export default function NewContactModal({ closeModal, myId, myUsername }) {
   const usernameRef = useRef()
   const { users, addContact } = useUsers()
 
+  // const nonContacts = users.filter(user => {
+  //   return user.username !== myUsername
+  // })
+
+  const currentUser = users.find(user => user.id === myId)
+  const myContacts = currentUser.contacts.map(contact => (
+    users.find(user => user.id === contact.id)
+  ))
+  const nonContacts = users.filter(user => (
+    user.username !== myUsername && !myContacts.includes(user)
+  //   currentUser.contacts.map(contact => (
+
+  //   ))
+  ))
+
+
   function selectUser(sUsername) {
     const selectedUser = users.find(user => user.username === sUsername)
     if (selectedUser !== undefined) {
@@ -48,7 +64,7 @@ export default function NewContactModal({ closeModal, myId, myUsername }) {
                     onChange={(e) => e.preventDefault() || selectUser(e.target.value)}
                     required
                   >
-                    {users.map((user, i) => (
+                    {nonContacts.map((user, i) => (
                       <option readOnly key={i} value={user.username} >{user.username}</option>
                     ))}
                   </Form.Control>
