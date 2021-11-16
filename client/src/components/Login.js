@@ -5,13 +5,11 @@ import { useUsers } from '../contexts/UsersProvider'
 
 export default function Login( { value, onChange, idValue, onIdSubmit, isLoggedIn, setLogin }) {
   const { users, createUser } = useUsers()
-  const [newUser, setNewUser] = useState(false)
+  const [newUser, setNewUser] = useState(true)
   const usernameRef = useRef()
 
   function isNewUser(username) {
-    for (let i = 0; i < users.length; i++) {
-      (users[i].username !== username) ? setNewUser(true) : setNewUser(false)
-    }
+    (users.find(user => user.username === username) === undefined) ? setNewUser(true) : setNewUser(false)
   }
 
   function generateRandomUsername() {
@@ -24,17 +22,14 @@ export default function Login( { value, onChange, idValue, onIdSubmit, isLoggedI
 
     const username = usernameRef.current.value
     isNewUser(username)
+
     let id
     if (users.length === 0 || newUser) {
       id = uuidV4().slice(0, 7)
       onIdSubmit(id)
       createUser(id, username)
-      console.log('new user')
     }
-    if (!id && !newUser) {
-      console.log('old user')
-      onChange(username)
-      console.log(users)
+    if (!newUser) {
       onIdSubmit(users.find(user => user.username === username).id)
     }
     setLogin(true)
@@ -54,7 +49,7 @@ export default function Login( { value, onChange, idValue, onIdSubmit, isLoggedI
               type="text"
               ref={usernameRef}
               value={value}
-              onClick={(e) => e.preventDefault() || onChange(e.target.value)}
+              onChange={(e) => e.preventDefault() || onChange(e.target.value)}
               required>
             </Form.Control>
           </Form.Group>
