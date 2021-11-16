@@ -24,7 +24,6 @@ export function UsersProvider({ children }) {
     return nonContacts
   }
 
-
   function createUser(id, username) {
     setUsers(prevUsers => {
       return [...prevUsers, {id, username, contacts: []}]
