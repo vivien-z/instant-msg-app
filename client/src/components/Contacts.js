@@ -13,6 +13,7 @@ export default function Contacts({ myUsername }) {
         {contacts.map((contact, i) => (
           <ListGroup.Item key={i}>
               {contact.username}
+              {/*<div className="px-2 text-muted small">Id: {contact.id}</div>*/}
           </ListGroup.Item>
         ))}
 
