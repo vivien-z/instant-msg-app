@@ -29,7 +29,7 @@ export default function App() {
 
   return (
     <SocketProvider myId={myId}>
-      <UsersProvider>
+      <UsersProvider myId={myId} myUsername={myUsername}>
         <Header
           myId={myId}
           myUsername={myUsername}

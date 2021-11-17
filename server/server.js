@@ -33,6 +33,11 @@ app.get('/', (req, res, next) => {
 io.on('connection', (socket) => {
   console.log('We have a new connection.')
 
+  socket.on('add-new-user', ({id, username}) => {
+    socket.broadcast.emit('new-user-created', ({id, username}))
+    console.log('new-user-created')
+  })
+
   socket.on('send-message', ({ selectedChatroom, sender, msgText, roomUsers }) => {
     socket.broadcast.emit('receive-message', {selectedChatroom, sender, msgText})
   })

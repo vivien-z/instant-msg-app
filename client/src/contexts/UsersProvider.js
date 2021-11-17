@@ -1,5 +1,6 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useCallback } from 'react'
 import useLocalStorage from '../hooks/useLocalStorage'
+import { useSocket } from '../contexts/SocketProvider';
 
 const UsersContext = React.createContext()
 
@@ -7,12 +8,13 @@ export function useUsers() {
   return useContext(UsersContext)
 }
 
-export function UsersProvider({ children }) {
+export function UsersProvider({ myId, myUsername, children }) {
   const [users, setUsers] = useLocalStorage('users', [])
+  const socket = useSocket()
 
   function getContactUsers(currentUser) {
     return currentUser.contacts.map(contact => (
-      users.find(user => user.id === contact.id)
+      users.find(user => user.username === contact.username)
     ))
   }
 
@@ -24,23 +26,30 @@ export function UsersProvider({ children }) {
     return nonContacts
   }
 
-  function createUser(id, username) {
+  const createUser = useCallback(({id, username}) => {
     setUsers(prevUsers => {
       return [...prevUsers, {id, username, contacts: []}]
     })
-  }
+    socket.emit('add-new-user', {id, username})
+  }, [socket, setUsers])
 
-  function addContact({user, newContactId}) {
+  function addContact({user, newContact}) {
     setUsers(prevUsers => {
       const updatedUsers = prevUsers.map(u => {
         if (u.id === user.id) {
-          u.contacts.push({id: newContactId})
+          u.contacts.push({username: newContact})
         }
         return u
       })
       return updatedUsers
     })
   }
+
+  useEffect(() => {
+    if (socket === null) return
+    socket.on('new-user-created',createUser)
+    return () => socket.off('new-user-created')
+  }, [socket, createUser])
 
   const outputValue = {
     users,

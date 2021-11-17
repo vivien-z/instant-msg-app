@@ -15,7 +15,7 @@ export function SocketProvider({ myId, children }) {
     const newSocket = io(
       ENDPOINT,
       {
-        // query: {myId},
+        query: {myId},
         withCredentials: true
       }
     )
