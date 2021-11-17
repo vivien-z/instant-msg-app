@@ -3,8 +3,8 @@ import { Modal, Form, Row, Col, Button } from 'react-bootstrap'
 import { useUsers } from '../contexts/UsersProvider'
 
 export default function NewContactModal({ closeModal, myId, myUsername }) {
+  // const idRef = useRef()
   const [sId, setSId] = useState()
-  const idRef = useRef()
   const usernameRef = useRef()
   const { users, addContact, getNonContactUsers } = useUsers()
 
@@ -20,9 +20,10 @@ export default function NewContactModal({ closeModal, myId, myUsername }) {
 
   function handleSubmit(e) {
     e.preventDefault()
-    const user = users.find(user => user.username === myUsername)
+    const currentUser = users.find(user => user.username === myUsername)
     if (sId !== undefined) {
-      addContact({user: user, newContactId: sId})
+      const newContact = users.find(user => user.id === sId)
+      addContact({user: currentUser, newContact: newContact.username})
       closeModal()
     } else {
       alert("Please try again!")
@@ -34,14 +35,14 @@ export default function NewContactModal({ closeModal, myId, myUsername }) {
       <Modal.Header closeButton>Add New Contact</Modal.Header>
       <Modal.Body>
         <Form onSubmit={ handleSubmit }>
-            <Row>
-              <Col xs={4}>
+            <Row className="align-items-end" >
+{/*              <Col xs={4}>
                 <Form.Group>
                   <Form.Label>Id:</Form.Label>
-                  <Form.Control readOnly type="text" ref={idRef} value={sId || ''} required></Form.Control>
+                  <Form.Control type="text" ref={idRef} placeholder={sId || ''} ></Form.Control>
                 </Form.Group>
-              </Col>
-              <Col xs={8}>
+              </Col>*/}
+              <Col xs={9}>
                 <Form.Group className="">
                   <Form.Label>Username:</Form.Label>
                   <Form.Control
@@ -57,10 +58,8 @@ export default function NewContactModal({ closeModal, myId, myUsername }) {
                   </Form.Control>
                 </Form.Group>
               </Col>
-            </Row>
-            <Row>
-              <Col xs={12}>
-                <Button type='submit' className="mt-3 w-100">Add</Button>
+              <Col xs={3}>
+                <Button type='submit' className="justify-content-end w-100">Add</Button>
               </Col>
             </Row>
         </Form>

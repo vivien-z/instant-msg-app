@@ -28,7 +28,7 @@ export default function Login( { value, onChange, idValue, onIdSubmit, isLoggedI
     if (users.length === 0 || newUser) {
       id = uuidV4().slice(0, 7)
       onIdSubmit(id)
-      createUser(id, username)
+      createUser({id: id, username: username})
     }
     if (!newUser) {
       onIdSubmit(users.find(user => user.username === username).id)

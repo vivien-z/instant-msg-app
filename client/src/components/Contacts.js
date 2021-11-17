@@ -10,7 +10,7 @@ export default function Contacts({ myUsername }) {
 
         {contacts.map((contact, i) => (
           <ListGroup.Item key={i}>
-              {users.find(user => user.id === contact.id).username}
+              {contact.username}
           </ListGroup.Item>
         ))}
 
