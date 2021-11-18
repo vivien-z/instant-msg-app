@@ -26,12 +26,16 @@ export function UsersProvider({ myId, myUsername, children }) {
     return nonContacts
   }
 
-  const createUser = useCallback(({id, username}) => {
+  const addNewUser = useCallback(({id, username}) => {
     setUsers(prevUsers => {
       return [...prevUsers, {id, username, contacts: []}]
     })
+  },[setUsers])
+
+  function createUser({id, username}) {
+    addNewUser({id: id, username: username})
     socket.emit('add-new-user', {id, username})
-  }, [socket, setUsers])
+  }
 
   function addContact({user, newContact}) {
     setUsers(prevUsers => {
@@ -47,9 +51,9 @@ export function UsersProvider({ myId, myUsername, children }) {
 
   useEffect(() => {
     if (socket === null) return
-    socket.on('new-user-created',createUser)
+    socket.on('new-user-created',addNewUser)
     return () => socket.off('new-user-created')
-  }, [socket, createUser])
+  }, [socket, addNewUser])
 
   const outputValue = {
     users,

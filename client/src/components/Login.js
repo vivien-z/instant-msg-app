@@ -26,9 +26,9 @@ export default function Login( { value, onChange, idValue, onIdSubmit, isLoggedI
 
     let id
     if (users.length === 0) {
-      createUser({id: 'a6b8506', username: 'firstUser'})
+      createUser({id: '1111111', username: 'firstUser'})
     }
-    if (users.length === 0 || newUser) {
+    if (newUser) {
       id = uuidV4().slice(0, 7)
       onIdSubmit(id)
       createUser({id: id, username: username})
