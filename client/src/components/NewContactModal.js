@@ -26,7 +26,7 @@ export default function NewContactModal({ closeModal, myId, myUsername }) {
       addContact({user: currentUser, newContact: newContact.username})
       closeModal()
     } else {
-      alert("Please try again!")
+      alert("Please select a user!")
     }
   }
 
@@ -52,8 +52,9 @@ export default function NewContactModal({ closeModal, myId, myUsername }) {
                     onChange={(e) => e.preventDefault() || selectUser(e.target.value)}
                     required
                   >
+                    <option value='1' default>--- select a user ---</option>
                     {nonContacts.map((user, i) => (
-                      <option readOnly key={i} value={user.username} >{user.username}</option>
+                      <option key={i+1} value={user.username} readOnly>{user.username}</option>
                     ))}
                   </Form.Control>
                 </Form.Group>
