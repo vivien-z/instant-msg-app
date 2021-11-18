@@ -12,7 +12,8 @@ const PORT = process.env.PORT || 8080
 
 const io = new Server(server, {
   cors: {
-    origin: [netlifyLink, "http://localhost:3000"],
+    origin: [netlifyLink],
+    // origin: [netlifyLink, "http://localhost:3000"],
     // origin: *,
     methods: ["GET", "POST", "PUT"],
     credentials: true
