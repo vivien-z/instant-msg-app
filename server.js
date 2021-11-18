@@ -5,8 +5,8 @@ const app = express()
 const http = require('http')
 const { Server }= require("socket.io")
 const server = http.createServer(app)
-const cors = require('cors')
-const netlifyLink = 'https://6196a944bfd0be00c7b098eb--instant-msg-page.netlify.app/'
+// const cors = require('cors')
+const netlifyLink = 'https://instant-msg-page.netlify.app/'
 
 const PORT = process.env.PORT || 8080
 
@@ -20,11 +20,6 @@ const io = new Server(server, {
 });
 
 app.use(express.static(path.join(__dirname, 'build')))
-// // app.use(cors())
-// app.use(cors({
-//     origin: [netlifyLink, "http://localhost:3000"],
-//     methods: ["GET", "POST", "PUT"],
-// }))
 
 app.get('/*', (req, res, next) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
@@ -50,24 +45,3 @@ io.on('connection', (socket) => {
 })
 
 server.listen(PORT, () => console.log(`Server is listening to port ${PORT}`))
-
-
-// const io = require('socket.io')(5000, {
-
-//   cors: {
-//     origin: "http://localhost:3000",
-//     methods: ["GET", "POST", "PUT"],
-//     credentials: true
-//   }
-// })
-
-// io.on('connection', socket => {
-//   // const id = socket.handshake.query.myId
-//   // socket.join(id)
-
-//   // socket.on('create-new-chatroom', ({ roomUserIds }) => {
-//   //   socket.broadcast.emit('match-new-chatroom', { roomUserIds })
-//   // })
-
-// })
-
