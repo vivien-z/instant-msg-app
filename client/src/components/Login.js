@@ -6,7 +6,7 @@ import { useUsers } from '../contexts/UsersProvider'
 export default function Login( { value, onChange, idValue, onIdSubmit, isLoggedIn, setLogin }) {
   const { users, createUser } = useUsers()
   const usernameRef = useRef()
-  let newUser
+  let newUser = true
 
   function isNewUser(username) {
     const userMatch = users.find(user => user.username === username)
@@ -25,7 +25,10 @@ export default function Login( { value, onChange, idValue, onIdSubmit, isLoggedI
     isNewUser(username)
 
     let id
-    if (users.length === 0 || newUser) {
+    if (users.length === 0) {
+      createUser({id: '1111111', username: 'firstUser'})
+    }
+    if (newUser) {
       id = uuidV4().slice(0, 7)
       onIdSubmit(id)
       createUser({id: id, username: username})

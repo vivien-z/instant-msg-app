@@ -9,8 +9,8 @@ import Header from './Header'
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [myUsername, setMyUsername] = useLocalStorage('my-username')
-  const [myId, setMyId] = useLocalStorage('my-id')
+  const [myUsername, setMyUsername] = useLocalStorage('my-username', '')
+  const [myId, setMyId] = useLocalStorage('my-id','')
 
   const mainInterfacePage = (
     <MainInterface myId={myId} myUsername={myUsername} />
