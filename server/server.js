@@ -5,13 +5,14 @@ const app = express()
 const http = require('http')
 const { Server }= require("socket.io")
 const server = http.createServer(app)
-// const cors = require('cors')
+const cors = require('cors')
+const webLink = "https://6196a944bfd0be00c7b098eb--instant-msg-page.netlify.app/"
 
 const PORT = process.env.PORT || 8080
 
 const io = new Server(server, {
   cors: {
-    origin: ["https://619548b7832b0a000794243e--instant-msg-page.netlify.app/", "http://localhost:3000"],
+    origin: [webLink, "http://localhost:3000"],
     // origin: *,
     methods: ["GET", "POST", "PUT"],
     credentials: true
@@ -21,7 +22,7 @@ const io = new Server(server, {
 app.use(express.static(path.join(__dirname, 'build')))
 // // app.use(cors())
 // app.use(cors({
-//     origin: ["https://619548b7832b0a000794243e--instant-msg-page.netlify.app/", "http://localhost:3000"],
+//     origin: [webLink, "http://localhost:3000"],
 //     methods: ["GET", "POST", "PUT"],
 // }))
 
