@@ -18,10 +18,6 @@ export function SocketProvider({ myId, children }) {
       {
         query: {myId},
         withCredentials: true
-        // extraHeaders: {
-        //   "Origin": "https://instant-msg-page.netlify.app",
-        //   'Content-type': 'application/octet-stream'
-        // }
       }
     )
     setSocket(newSocket)
