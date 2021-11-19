@@ -6,14 +6,13 @@ const http = require('http')
 const { Server }= require("socket.io")
 const server = http.createServer(app)
 // const cors = require('cors')
-// const netlifyLink = "https://instant-msg-page.netlify.app/"
 
 const PORT = process.env.PORT || 8080
 
 const io = new Server(server, {
   cors: {
-    // origin: "https://instant-msg-page.netlify.app/",
-    origin: "http://localhost:3000",
+    origin: "https://instant-msg-page.netlify.app/",
+    // origin: "http://localhost:3000",
     methods: ["GET", "POST", "PUT"],
     allowedHeaders: ["instant-msg-page"],
     credentials: true
