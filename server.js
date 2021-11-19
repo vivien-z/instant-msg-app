@@ -18,24 +18,24 @@ app.get('/*', (req, res, next) => {
 });
 
 const io = new Server(server, {
-  cors: {
-    // origin: "https://instant-msg-page.netlify.app",
-    origin: "*",
-    methods: ["GET", "POST", "HEAD", "OPTIONS"],
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-    allowedHeaders: ["my-custom-header"],
-    credentials: true
+  // cors: {
+  //   // origin: "https://instant-msg-page.netlify.app",
+  //   origin: "*",
+  //   methods: ["GET", "POST", "HEAD", "OPTIONS"],
+  //   // preflightContinue: false,
+  //   // optionsSuccessStatus: 204,
+  //   // allowedHeaders: ["my-custom-header"],
+  //   credentials: true
+  // }
 
-    // handlePreflightRequest: (req, res) => {
-    //   res.writeHead(200, {
-    //     "Access-Control-Allow-Origin": "https://instant-msg-page.netlify.app",
-    //     "Access-Control-Allow-Methods": "GET, POST, HEAD, OPTIONS",
-    //     "Access-Control-Allow-Headers": "my-custom-header",
-    //     "Access-Control-Allow-Credentials": true
-    //   });
-    //   res.end();
-    // }
+  handlePreflightRequest: (req, res) => {
+    res.writeHead(200, {
+      "Access-Control-Allow-Origin": "https://instant-msg-page.netlify.app",
+      "Access-Control-Allow-Methods": "GET, POST, HEAD, OPTIONS",
+      "Access-Control-Allow-Headers": "my-custom-header",
+      "Access-Control-Allow-Credentials": true
+    });
+    res.end();
   }
 });
 
