@@ -17,9 +17,10 @@ export function SocketProvider({ myId, children }) {
       ENDPOINT,
       {
         query: {myId},
-        withCredentials: true,
+        withCredentials: true
         extraHeaders: {
-          "my-custom-header": "abcd"
+          "my-custom-header": "abcd",
+          'Content-type': 'application/octet-stream'
         }
       }
     )

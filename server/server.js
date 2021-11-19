@@ -21,18 +21,18 @@ const io = new Server(server, {
   cors: {
     origin: "https://instant-msg-page.netlify.app",
     methods: ["GET", "POST", "HEAD", "OPTIONS"],
-    allowedHeaders: ["my-custom-header"],
+    allowedHeaders: ["my-custom-header", "Content-type"],
     credentials: true
 
-    handlePreflightRequest: (req, res) => {
-      res.writeHead(200, {
-        "Access-Control-Allow-Origin": "https://instant-msg-page.netlify.app",
-        "Access-Control-Allow-Methods": "GET, POST, HEAD, OPTIONS",
-        "Access-Control-Allow-Headers": "my-custom-header",
-        "Access-Control-Allow-Credentials": true
-      });
-      res.end();
-    }
+    // handlePreflightRequest: (req, res) => {
+    //   res.writeHead(200, {
+    //     "Access-Control-Allow-Origin": "https://instant-msg-page.netlify.app",
+    //     "Access-Control-Allow-Methods": "GET, POST, HEAD, OPTIONS",
+    //     "Access-Control-Allow-Headers": "my-custom-header",
+    //     "Access-Control-Allow-Credentials": true
+    //   });
+    //   res.end();
+    // }
   }
 });
 
