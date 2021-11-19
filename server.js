@@ -1,25 +1,31 @@
 const express = require('express')
 const path = require('path') //(router)
 const app = express()
+const cors = require('cors')
 
 const http = require('http')
 const { Server }= require("socket.io")
 const server = http.createServer(app)
-// const cors = require('cors')
 // const netlifyLink = 'https://instant-msg-page.netlify.app/'
 
 const PORT = process.env.PORT || 8080
 
 const io = new Server(server, {
-  cors: {
-    origin: 'https://instant-msg-page.netlify.app/',
-    // origin: [netlifyLink, "http://localhost:3000"],
-    methods: ["GET", "POST", "HEAD", "OPTIONS"],
-    allowedHeaders: ["instant-msg-page", "Origin"],
-    credentials: true
-  }
+  // cors: {
+  //   origin: 'https://instant-msg-page.netlify.app/',
+  //   // origin: [netlifyLink, "http://localhost:3000"],
+  //   methods: ["GET", "POST", "HEAD", "OPTIONS"],
+  //   allowedHeaders: ["instant-msg-page", "Origin"],
+  //   credentials: true
+  // }
 });
 
+app.use(cors({
+    origin: 'https://instant-msg-page.netlify.app/',
+    methods: ["GET", "POST", "HEAD", "OPTIONS"],
+    // allowedHeaders: ["instant-msg-page", "Origin"],
+    credentials: true
+}))
 app.use(express.static(path.join(__dirname, 'build')))
 
 app.get('/*', (req, res, next) => {
