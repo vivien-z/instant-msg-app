@@ -19,8 +19,11 @@ app.get('/*', (req, res, next) => {
 
 const io = new Server(server, {
   cors: {
-    origin: "https://instant-msg-page.netlify.app",
+    // origin: "https://instant-msg-page.netlify.app",
+    origin: "*",
     methods: ["GET", "POST", "HEAD", "OPTIONS"],
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
     allowedHeaders: ["my-custom-header"],
     credentials: true
 
