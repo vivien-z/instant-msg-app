@@ -17,10 +17,10 @@ export function SocketProvider({ myId, children }) {
       ENDPOINT,
       {
         query: {myId},
-        withCredentials: true,
-        extraHeaders: {
-          "instant-msg-page": "abcd"
-        }
+        withCredentials: true
+        // extraHeaders: {
+        //   "instant-msg-page": "abcd"
+        // }
       }
     )
     setSocket(newSocket)
