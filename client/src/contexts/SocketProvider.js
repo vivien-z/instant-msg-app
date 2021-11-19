@@ -18,15 +18,15 @@ export function SocketProvider({ myId, children }) {
       {
         query: {myId},
         withCredentials: true
-        extraHeaders: {
-          "instant-msg-page": "msg-page"
-        }
+        // extraHeaders: {
+        //   "instant-msg-page": "abcd"
+        // }
       }
     )
     setSocket(newSocket)
 
     return () => newSocket.close()
-  }, [myId, ENDPOINT])
+  }, [io, myId, ENDPOINT])
 
   return (
     <SocketContext.Provider value={socket}>
