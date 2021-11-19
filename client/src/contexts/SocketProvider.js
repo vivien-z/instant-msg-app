@@ -18,9 +18,9 @@ export function SocketProvider({ myId, children }) {
       {
         query: {myId},
         withCredentials: true,
-        extraHeaders: {
-          "instant-msg-page": "abcd"
-        }
+        // extraHeaders: {
+        //   "instant-msg-page": "abcd"
+        // }
       }
     )
     setSocket(newSocket)
