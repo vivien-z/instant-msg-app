@@ -9,43 +9,34 @@ const server = http.createServer(app)
 
 const PORT = process.env.PORT || 8080
 
-const io = new Server(server)
-// , {
-//   // cors: {
-//   //   origin: 'https://instant-msg-page.netlify.app/',
-//   //   // origin: [netlifyLink, "http://localhost:3000"],
-//   //   methods: ["GET", "POST", "HEAD", "OPTIONS"],
-//   //   allowedHeaders: ["instant-msg-page", "Origin"],
-//   //   credentials: true
-//   // }
-// });
-
-const whiteList = ['https://instant-msg-page.netlify.app/', 'http://localhost:3000']
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
-
-// app.use(cors({
-//     origin: 'https://instant-msg-page.netlify.app/',
-//     methods: ["GET", "POST", "HEAD", "OPTIONS"],
-//     // allowedHeaders: ["instant-msg-page", "Origin"],
-//     credentials: true
-// }))
-app.options('*', cors())
+app.use(cors())
 app.use(express.static(path.join(__dirname, 'build')))
 
-app.get('/*', cors(corsOptions), (req, res, next) => {
+app.get('/*', (req, res, next) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
-  res.send('CORS-enabled for a whitelisted domain')
   res.send('Server is up and running')
 });
 
+// const io = new Server(server)
+const io = new Server(server, {
+  cors: {
+    // origin: 'https://instant-msg-page.netlify.app/',
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true
+
+    // handlePreflightRequest: (req, res) => {
+    //   res.writeHead(200, {
+    //     "Access-Control-Allow-Origin": "http://localhost:3000",
+    //     "Access-Control-Allow-Methods": "GET, POST",
+    //     "Access-Control-Allow-Headers": "my-custom-header",
+    //     "Access-Control-Allow-Credentials": true
+    //   });
+    //   res.end();
+    // }
+  }
+});
 
 io.on('connection', (socket) => {
   console.log('We have a new connection.')
