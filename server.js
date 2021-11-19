@@ -20,8 +20,8 @@ app.get('/*', (req, res, next) => {
 // const io = new Server(server)
 const io = new Server(server, {
   cors: {
-    // origin: 'https://instant-msg-page.netlify.app/',
-    origin: ["http://localhost:3000"],
+    origin: 'https://instant-msg-page.netlify.app/',
+    // origin: ["http://localhost:3000"],
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: true
