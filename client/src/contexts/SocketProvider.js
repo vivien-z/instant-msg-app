@@ -19,7 +19,7 @@ export function SocketProvider({ myId, children }) {
         query: {myId},
         withCredentials: true,
         extraHeaders: {
-          "my-custom-header": "abcd",
+          "Origin": "https://instant-msg-page.netlify.app",
           'Content-type': 'application/octet-stream'
         }
       }
