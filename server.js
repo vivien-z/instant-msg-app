@@ -14,7 +14,7 @@ const io = new Server(server, {
   cors: {
     origin: 'https://instant-msg-page.netlify.app/',
     // origin: [netlifyLink, "http://localhost:3000"],
-    methods: ["GET", "POST", "PUT"],
+    methods: ["GET", "POST", "HEAD", "OPTIONS"],
     // allowedHeaders: ["instant-msg-page"],
     credentials: true
   }
