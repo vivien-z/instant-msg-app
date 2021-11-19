@@ -1,35 +1,42 @@
 const express = require('express')
 const path = require('path') //(router)
+const cors = require('cors')
 const app = express()
 
 const http = require('http')
 const { Server }= require("socket.io")
 const server = http.createServer(app)
-// const cors = require('cors')
 
 const PORT = process.env.PORT || 8080
 
-const io = new Server(server, {
-  cors: {
-    origin: [netlifyLink, "http://localhost:3000"],
-    methods: ["GET", "POST", "HEAD", "OPTIONS"],
-    // allowedHeaders: ["instant-msg-page"],
-    credentials: true
-  }
-});
-
+app.use(cors())
 app.use(express.static(path.join(__dirname, 'build')))
-// // app.use(cors())
-// app.use(cors({
-//     origin: [netlifyLink, "http://localhost:3000"],
-//     methods: ["GET", "POST", "PUT"],
-// }))
 
 app.get('/*', (req, res, next) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
   res.send('Server is up and running')
 });
 
+// const io = new Server(server)
+const io = new Server(server, {
+  cors: {
+    // origin: 'https://instant-msg-page.netlify.app/',
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true
+
+    // handlePreflightRequest: (req, res) => {
+    //   res.writeHead(200, {
+    //     "Access-Control-Allow-Origin": "http://localhost:3000",
+    //     "Access-Control-Allow-Methods": "GET, POST",
+    //     "Access-Control-Allow-Headers": "my-custom-header",
+    //     "Access-Control-Allow-Credentials": true
+    //   });
+    //   res.end();
+    // }
+  }
+});
 
 io.on('connection', (socket) => {
   console.log('We have a new connection.')
@@ -49,24 +56,3 @@ io.on('connection', (socket) => {
 })
 
 server.listen(PORT, () => console.log(`Server is listening to port ${PORT}`))
-
-
-// const io = require('socket.io')(5000, {
-
-//   cors: {
-//     origin: "http://localhost:3000",
-//     methods: ["GET", "POST", "PUT"],
-//     credentials: true
-//   }
-// })
-
-// io.on('connection', socket => {
-//   // const id = socket.handshake.query.myId
-//   // socket.join(id)
-
-//   // socket.on('create-new-chatroom', ({ roomUserIds }) => {
-//   //   socket.broadcast.emit('match-new-chatroom', { roomUserIds })
-//   // })
-
-// })
-
