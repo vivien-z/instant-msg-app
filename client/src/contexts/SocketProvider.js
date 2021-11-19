@@ -9,6 +9,7 @@ export function useSocket() {
 
 export function SocketProvider({ myId, children }) {
   const [socket, setSocket] = useState(null)
+  const io = require("socket.io-client")
   const ENDPOINT = 'https://instant-msg-app.herokuapp.com/' || 'http://localhost:8080'
   // const ENDPOINT = 'http://localhost:8080'
   useEffect(() => {
@@ -17,6 +18,9 @@ export function SocketProvider({ myId, children }) {
       {
         query: {myId},
         withCredentials: true
+        extraHeaders: {
+          "instant-msg-page": "msg-page"
+        }
       }
     )
     setSocket(newSocket)
