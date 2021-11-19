@@ -6,7 +6,6 @@ const http = require('http')
 const { Server }= require("socket.io")
 const server = http.createServer(app)
 // const cors = require('cors')
-const netlifyLink = "https://instant-msg-page.netlify.app/"
 
 const PORT = process.env.PORT || 8080
 
