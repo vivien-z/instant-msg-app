@@ -17,7 +17,7 @@ export function SocketProvider({ myId, children }) {
       ENDPOINT,
       {
         query: {myId},
-        withCredentials: true
+        withCredentials: true,
         extraHeaders: {
           "instant-msg-page": "msg-page"
         }
